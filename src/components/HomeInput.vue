@@ -15,7 +15,7 @@ import {Search} from '@element-plus/icons-vue'
 const inputText = ref("")
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .home_input {
     margin-bottom: 40px;
 }
