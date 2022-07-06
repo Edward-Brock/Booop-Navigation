@@ -1,21 +1,34 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+    <el-container>
+        <el-header id="header">{{ header }}</el-header>
+        <el-main>
+            <HomeInput/>
+            <HomeCard/>
+        </el-main>
+        <el-footer>Footer</el-footer>
+    </el-container>
 </template>
 
+<script setup>
+import HomeInput from './components/HomeInput.vue'
+import HomeCard from './components/HomeCard.vue'
+import {ref} from "vue";
+
+const header = ref("booop 导航")
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Century Gothic", "Sitka Text", "黑体", "华文中宋", "思源宋体 CN";
 }
 </style>
