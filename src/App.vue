@@ -1,6 +1,8 @@
 <template>
     <el-container>
-        <el-header id="header">{{ header }}</el-header>
+        <el-header>
+            <HomeHeader/>
+        </el-header>
         <el-main>
             <HomeInput/>
             <HomeCard/>
@@ -11,16 +13,14 @@
 <script setup>
 import HomeInput from './components/HomeInput.vue'
 import HomeCard from './components/HomeCard.vue'
-import {ref} from "vue";
-
-const header = ref("booop 导航")
+import HomeHeader from "./components/HomeHeader.vue";
 </script>
 
 <style lang="scss">
 // 页面整体宽度
 @mixin width-padding {
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 10%;
+    padding-right: 10%;
     box-sizing: border-box;
 }
 
@@ -30,20 +30,18 @@ const header = ref("booop 导航")
 }
 
 .el-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: rgba(0, 0, 0, .1) 1px solid;
-    @include width-padding;
-    box-sizing: border-box;
-    font-size: 24px;
-    font-weight: bold;
-    font-family: "Century Gothic", "Sitka Text", "黑体", "华文中宋", "思源宋体 CN";
+    //@include width-padding;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: solid 1px var(--el-menu-border-color);
 }
 
 .el-main {
-    height: calc(100vh - 60px);
     @include width-padding;
-    box-sizing: border-box;
+    background: #fafafa;
+    margin-top: 60px;
 }
 </style>
