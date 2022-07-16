@@ -1,47 +1,16 @@
 <template>
-    <el-container>
-        <el-header>
-            <HomeHeader/>
-        </el-header>
-        <el-main>
-            <HomeInput/>
-            <HomeCard/>
-        </el-main>
-    </el-container>
+    <!--<router-view></router-view>-->
+    <Home/>
 </template>
 
 <script setup>
-import HomeInput from './components/HomeInput.vue'
-import HomeCard from './components/HomeCard.vue'
-import HomeHeader from "./components/HomeHeader.vue";
+
+import Home from "./components/Home.vue";
 </script>
 
 <style lang="scss">
-// 页面整体宽度
-@mixin width-padding {
-    padding-left: 10%;
-    padding-right: 10%;
-    box-sizing: border-box;
-}
-
 * {
     margin: 0;
     padding: 0;
-}
-
-.el-header {
-    //@include width-padding;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: solid 1px var(--el-menu-border-color);
-}
-
-.el-main {
-    @include width-padding;
-    background: #fafafa;
-    margin-top: 60px;
 }
 </style>

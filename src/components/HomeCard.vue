@@ -1,18 +1,18 @@
 <template>
-    <div class="container" v-for="i in 9" :key="i">
+    <div class="container" v-for="cardGroup in card.cardInfo" :key="cardGroup">
         <!--标题-->
-        <h1>固定 Tab</h1>
+        <h1>{{ cardGroup.title }}</h1>
         <!--卡片主窗体-->
         <div class="cardGroup">
-            <div class="cardBg" v-for="i in 9" :key="i">
+            <div class="cardBg" v-for="i in cardGroup.url" :key="i">
                 <a class="cardBgHref" href="#">
                     <div class="cardImages hidden-xs-only">
                         <el-avatar shape="circle" :src="squareUrl"/>
                     </div>
                     <!--卡片文字部分-->
                     <div class="cardTextContent">
-                        <div class="cardTitle">百度</div>
-                        <div class="cardSubtitle hidden-xs-only">百度一下，你就知道,百度一下，你就知道,百度一下，你就知道</div>
+                        <div class="cardTitle">{{ i.title }}</div>
+                        <div class="cardSubtitle hidden-xs-only">{{ i.remark }}</div>
                     </div>
                 </a>
             </div>
@@ -23,11 +23,28 @@
 
 <script setup>
 import 'element-plus/theme-chalk/display.css'
-import {reactive, ref, toRefs} from "vue";
+import {onMounted, reactive, ref, toRefs} from "vue";
+import axios from "axios";
+
+const card = reactive({
+    cardInfo: ''
+})
 
 const state = reactive({
     squareUrl:
         'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+})
+
+onMounted(() => {
+    axios({
+        method: "GET",
+        url: "https://www.fastmock.site/mock/302df2b3fdf407067f03b4121b1b0da9/my/info"
+    }).then(response => {
+        if (response.status === 200) {
+            console.log("获取数据成功")
+            card.cardInfo = response.data
+        }
+    })
 })
 
 const {squareUrl} = toRefs(state)
@@ -67,7 +84,7 @@ const {squareUrl} = toRefs(state)
             padding: 20px 10px 20px 20px;
             box-sizing: border-box;
 
-            &:link, &:hover, &:active {
+            &:link, &:hover, &:active, &:visited {
                 color: black;
                 text-decoration: none;
             }
