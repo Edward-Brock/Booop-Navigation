@@ -8,7 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "element-plus": "^2.2.8",
     "vue": "^3.2.25",
