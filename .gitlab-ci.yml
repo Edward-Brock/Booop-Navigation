@@ -10,20 +10,22 @@
 image: node:latest
 
 stages:     # 定义阶段顺序
-  - build   # 先 build
+  # - build   # 先 build
   - deploy  # 再部署
 
-build:                   # 定义一个 job 叫 build
-  stage: build           # 它属于 build 阶段
-  script:                # 该 Job 要执行的命令行
-    - npm install        # npm 安装项目依赖
-    - npm run build         # build 项目
-  only:
-    - main
+#build:                   # 定义一个 job 叫 build
+#  stage: build           # 它属于 build 阶段
+#  script:                # 该 Job 要执行的命令行
+#    - npm install        # npm 安装项目依赖
+#    - npm run build         # build 项目
+#  only:
+#    - main
 
 pages:                   # 定义一个 job 叫 pages，最后一个阶段一定要叫 pages，这样 gitlab-pages 才会开始工作
   stage: deploy          # 他属于 deploy 阶段
   script:                # 该 Job 要执行的命令行
+    - npm install        # npm 安装项目依赖
+    - npm run build      # build 项目
     - rm -rf public      # 删除 public 目录及目录下的文件。
     - mkdir public && cp -rf dist/* public  # 创建一个 public 目录，并且把 build 结果 dist 下的文件复制到 public
   only:
