@@ -69,6 +69,7 @@ function loginCheck() {
 }
 
 .el-menu--horizontal {
+    background: none !important;
     border-bottom: solid 0 var(--el-menu-border-color) !important;
     align-items: center;
 }
@@ -76,9 +77,9 @@ function loginCheck() {
 .title {
     display: flex;
     align-self: center;
-    font-size: 24px;
+    font-size: 1.25em;
     font-weight: bold;
-    font-family: "Century Gothic", "Sitka Text", "黑体", "华文中宋", "思源宋体 CN";
+    font-family: "Century Gothic", "Sitka Text", "苹方", "思源黑体", "华文中宋";
 }
 
 .flex-grow {

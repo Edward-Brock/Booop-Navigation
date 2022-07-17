@@ -25,7 +25,6 @@ import HomeHeader from "./HomeHeader.vue";
 }
 
 .el-container {
-    height: 100vh;
     background: #fafafa;
 }
 
