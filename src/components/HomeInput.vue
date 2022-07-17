@@ -47,7 +47,7 @@ function handlerSearch() {
 
 <style scoped lang="scss">
 .home_input {
-    margin: 20px 0 80px 0;
+    margin: 40px 0 60px 0;
 }
 
 .input_select {

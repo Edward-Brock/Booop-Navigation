@@ -10,6 +10,8 @@
         <div class="flex-grow"/>
         <el-menu-item index="0">首页</el-menu-item>
         <el-menu-item index="1">博客</el-menu-item>
+        <!--登录/头像显示区-->
+        <!--
         <div v-if="!isLogin">
             <router-link to="/login">
                 <el-button class="loginBtn" @click="loginCheck" size="large" text>登录</el-button>
@@ -29,6 +31,7 @@
                 </template>
             </el-dropdown>
         </div>
+        -->
     </el-menu>
 </template>
 <script setup>
