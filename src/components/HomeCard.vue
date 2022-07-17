@@ -58,7 +58,7 @@ const {squareUrl} = toRefs(state)
 
 <style scoped lang="scss">
 @mixin fontFamily {
-    font-family: "Bahnschrift", "思源黑体", "思源宋体 CN";
+    font-family: "Bahnschrift", "苹方", "思源黑体", "思源宋体 CN";
 }
 
 .container {
@@ -81,7 +81,7 @@ const {squareUrl} = toRefs(state)
         min-height: 80px;
         border-radius: 8px;
         background: #FFF;
-        margin: 1% 1% 1% 0;
+        margin: 1% 1.5% 1% 0;
         overflow: hidden;
         cursor: pointer;
         border: rgba(50, 50, 50, .1) 2px solid;
@@ -123,16 +123,14 @@ const {squareUrl} = toRefs(state)
 
         .cardTitle {
             font-size: 18px;
-            font-size: 18px;
             font-weight: bolder;
-            letter-spacing: 1.25px;
+            letter-spacing: 1px;
         }
 
         .cardSubtitle {
             width: 100%;
             font-size: 12px;
             color: rgba(100, 100, 100, .75);
-            margin-top: 10px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
