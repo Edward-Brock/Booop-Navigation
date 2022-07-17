@@ -1,6 +1,6 @@
 <template>
     <el-input
-        class="home_input"
+        class="home_input animate__animated animate__fadeInDownBig"
         v-model.lazy="inputText"
         size="large"
         placeholder=""

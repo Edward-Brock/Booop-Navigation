@@ -24,6 +24,11 @@ import HomeHeader from "./HomeHeader.vue";
     box-sizing: border-box;
 }
 
+.el-container {
+    height: 100vh;
+    background: #fafafa;
+}
+
 .el-header {
     //@include width-padding;
     position: fixed;
@@ -36,7 +41,6 @@ import HomeHeader from "./HomeHeader.vue";
 
 .el-main {
     @include width-padding;
-    background: #fafafa;
     margin-top: 60px;
 }
 

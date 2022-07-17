@@ -1,20 +1,21 @@
 <template>
-    <div class="container" v-for="cardGroup in card.cardInfo" :key="cardGroup">
+    <div class="container animate__animated animate__fadeInDownBig" v-for="cardGroup in card.cardInfo" :key="cardGroup">
         <!--标题-->
         <h1>{{ cardGroup.title }}</h1>
         <!--卡片主窗体-->
         <div class="cardGroup">
-            <div class="cardBg" :style="{border : randomColor() + ' 2px solid'}" v-for="(card,index) in cardGroup.url"
+            <div class="cardBg" v-for="(card,index) in cardGroup.url"
                  :key="index"
                  @click="urlHrefHandler(card.url)">
                 <div class="cardBgHref">
                     <div class="cardImages hidden-xs-only">
-                        <el-avatar shape="circle" :src="squareUrl"/>
+                        <el-avatar style="background: #FFFFFF" shape="circle"
+                                   :src="card.avatar_url ? card.avatar_url : squareUrl"/>
                     </div>
                     <!--卡片文字部分-->
                     <div class="cardTextContent">
                         <div class="cardTitle">{{ card.title }}</div>
-                        <div class="cardSubtitle hidden-xs-only">{{ card.remark }}</div>
+                        <div class="cardSubtitle">{{ card.subTitle }}</div>
                     </div>
                 </div>
             </div>
@@ -41,13 +42,6 @@ function urlHrefHandler(url) {
     window.open(url, '_blank')
 }
 
-function randomColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return "rgba(" + r + ', ' + g + ', ' + b + ", .25)";
-}
-
 onMounted(() => {
     axios({
         method: "GET",
@@ -64,7 +58,7 @@ const {squareUrl} = toRefs(state)
 
 <style scoped lang="scss">
 @mixin fontFamily {
-    font-family: "Lucida Fax", "华文中宋", "华文宋体", "思源黑体", "思源宋体 CN";
+    font-family: "Bahnschrift", "思源黑体", "思源宋体 CN";
 }
 
 .container {
@@ -84,16 +78,16 @@ const {squareUrl} = toRefs(state)
     }
 
     .cardBg {
-        width: 18%;
         min-height: 80px;
         border-radius: 8px;
         background: #FFF;
-        margin: 0.5% 1.6% 0.5% 0;
+        margin: 1% 1% 1% 0;
         overflow: hidden;
         cursor: pointer;
+        border: rgba(50, 50, 50, .1) 2px solid;
 
         &:hover {
-            //border: rgba(50, 50, 50, .1) 2px solid;
+            border: rgba(50, 50, 50, .1) 2px solid;
             box-shadow: 0 20px 60px rgba(50, 50, 50, .1);
         }
 
@@ -111,18 +105,20 @@ const {squareUrl} = toRefs(state)
         }
 
         .cardImages {
+            background: #FFFFFF;
             margin-right: 10px;
         }
 
         .cardTextContent {
             @include fontFamily;
-            width: 100%;
+            width: 140px;
             height: 100%;
             padding: 0 10px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            white-space: nowrap;
         }
 
         .cardTitle {
@@ -137,11 +133,9 @@ const {squareUrl} = toRefs(state)
             font-size: 12px;
             color: rgba(100, 100, 100, .75);
             margin-top: 10px;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
         }
     }
 }
