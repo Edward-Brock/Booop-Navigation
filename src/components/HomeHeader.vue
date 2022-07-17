@@ -41,7 +41,14 @@ const activeIndex = ref('0')
 const isLogin = ref(false)
 
 function handleSelect(value) {
-    console.log(value)
+    switch (value) {
+        case '0':
+            window.location.reload();
+            break;
+        case '1':
+            window.open("https://www.booop.net", '_self')
+            break;
+    }
 }
 
 function loginCheck() {
