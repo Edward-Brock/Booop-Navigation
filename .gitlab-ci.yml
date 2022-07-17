@@ -17,7 +17,7 @@ build:                   # 定义一个 job 叫 build
   stage: build           # 它属于 build 阶段
   script:                # 该 Job 要执行的命令行
     - npm install        # npm 安装项目依赖
-    - vite build         # build 项目
+    - npm run build         # build 项目
   only:
     - main
 
