@@ -6,7 +6,7 @@
         placeholder=""
         autofocus
         clearable
-        @keydown.enter="handlerSearch"
+        @keydown.enter="handlerSearch(select)"
     >
         <template class="home_input_select_template" #prepend>
             <el-select size="large" class="input_select" v-model="select" placeholder="Baidu">
@@ -16,7 +16,7 @@
             </el-select>
         </template>
         <template #append>
-            <el-button :icon="Search" @click="handlerSearch">搜索</el-button>
+            <el-button :icon="Search" @click="handlerSearch(select)">搜索</el-button>
         </template>
     </el-input>
 </template>
@@ -28,16 +28,16 @@ import {Search} from '@element-plus/icons-vue'
 const inputText = ref("")
 const select = ref("0")
 
-function handlerSearch() {
+function handlerSearch(select) {
     let url = ""
     switch (select) {
-        case "0":
+        case '0':
             url = "https://www.baidu.com/s?wd="
             break
-        case "1":
+        case '1':
             url = "https://www.google.com.hk/search?q="
             break
-        case "2":
+        case '2':
             url = "https://www.bing.com/search?q="
             break
     }
