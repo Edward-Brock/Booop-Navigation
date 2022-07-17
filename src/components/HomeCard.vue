@@ -1,5 +1,5 @@
 <template>
-    <div class="container animate__animated animate__fadeInDownBig" v-for="cardGroup in card.cardInfo" :key="cardGroup">
+    <div class="container" v-for="cardGroup in card.cardInfo" :key="cardGroup">
         <!--标题-->
         <h1>{{ cardGroup.title }}</h1>
         <!--卡片主窗体-->
