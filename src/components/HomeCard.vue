@@ -10,7 +10,7 @@
                 <div class="cardBgHref">
                     <div class="cardImages">
                         <el-avatar style="background: #FFFFFF" shape="circle"
-                                   :src="card.avatar_url ? card.avatar_url : squareUrl"/>
+                                   :src="card.avatar_url ? card.avatar_url : ''"/>
                     </div>
                     <!--卡片文字部分-->
                     <div class="cardTextContent">
