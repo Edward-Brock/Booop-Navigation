@@ -82,6 +82,7 @@ const data = reactive({
         height: 48px;
         color: #888888;
         font-size: 16px;
+        letter-spacing: 2px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
