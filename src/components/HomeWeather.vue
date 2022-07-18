@@ -45,7 +45,7 @@ const data = reactive({
 
 .container {
     margin: 20px 0;
-    width: 150%;
+    width: 100%;
 }
 
 .city {
