@@ -55,7 +55,8 @@ function urlHrefHandler(url) {
 function goAnchor(selector) {
     // console.log(selector)
     document.querySelector(selector).scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
+        block: "start"
     });
 }
 
