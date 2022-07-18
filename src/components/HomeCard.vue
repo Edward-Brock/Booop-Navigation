@@ -10,7 +10,7 @@
                 <div class="cardBgHref">
                     <div class="cardImages">
                         <el-avatar style="background: #FFFFFF" shape="circle"
-                                   :src="card.avatar_url ? card.avatar_url : ''"/>
+                                   :src="card.avatar_url ? card.avatar_url : squareUrl"/>
                     </div>
                     <!--卡片文字部分-->
                     <div class="cardTextContent">
@@ -33,10 +33,7 @@ const card = reactive({
     cardInfo: ''
 })
 
-const state = reactive({
-    squareUrl:
-        'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
-})
+const squareUrl = ref('https://booop.net/wp-content/uploads/2022/07/booop_logo_250_250_black.png')
 
 function urlHrefHandler(url) {
     window.open(url, '_blank')
@@ -52,8 +49,6 @@ onMounted(() => {
         }
     })
 })
-
-const {squareUrl} = toRefs(state)
 </script>
 
 <style scoped lang="scss">
