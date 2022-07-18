@@ -1,26 +1,41 @@
 <template>
-    <div class="container" v-for="cardGroup in card.cardInfo" :key="cardGroup">
-        <!--标题-->
-        <h1>{{ cardGroup.title }}</h1>
-        <!--卡片主窗体-->
-        <div class="cardGroup">
-            <div class="cardBg" v-for="(card,index) in cardGroup.url"
-                 :key="index"
-                 @click="urlHrefHandler(card.url)">
-                <div class="cardBgHref">
-                    <div class="cardImages">
-                        <el-avatar style="background: #FFFFFF" shape="circle"
-                                   :src="card.avatar_url ? card.avatar_url : squareUrl"/>
-                    </div>
-                    <!--卡片文字部分-->
-                    <div class="cardTextContent">
-                        <div class="cardTitle">{{ card.title }}</div>
-                        <div class="cardSubtitle">{{ card.subTitle }}</div>
+    <div class="container">
+        <!--标签区-->
+        <div class="cardTagContainer">
+            <a class="tagAHref" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup" :href="'#'+index">
+                <div class="cardTag">
+                    {{ cardGroup.title }}
+                </div>
+            </a>
+        </div>
+        <!--卡片群主框架区-->
+        <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup">
+            <!--标题-->
+            <h1>
+                <a :name="index">
+                    {{ cardGroup.title }}
+                </a>
+            </h1>
+            <!--卡片主窗体-->
+            <div class="cardGroup">
+                <div class="cardBg" v-for="(card,index) in cardGroup.url"
+                     :key="index"
+                     @click="urlHrefHandler(card.url)">
+                    <div class="cardBgHref">
+                        <div class="cardImages">
+                            <el-avatar style="background: #FFFFFF" shape="circle"
+                                       :src="card.avatar_url ? card.avatar_url : squareUrl"/>
+                        </div>
+                        <!--卡片文字部分-->
+                        <div class="cardTextContent">
+                            <div class="cardTitle">{{ card.title }}</div>
+                            <div class="cardSubtitle">{{ card.subTitle }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <el-backtop/>
         </div>
-        <el-backtop/>
     </div>
 </template>
 
@@ -56,7 +71,34 @@ onMounted(() => {
     font-family: "Bahnschrift", "苹方", "思源黑体", "思源宋体 CN";
 }
 
-.container {
+.cardTagContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+
+    .cardTag {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 6px 12px 6px 0;
+        padding: 8px 16px;
+        box-sizing: border-box;
+        border-radius: 50px;
+        border: solid 3px #EEEEEE;
+    }
+
+    .tagAHref:link, :visited, :active {
+        color: #AAAAAA;
+        text-decoration: none;
+    }
+
+    .tagAHref:hover {
+        color: #888888;
+        text-decoration: underline;
+    }
+}
+
+.cardContainer {
     margin-bottom: 40px;
 
     h1 {

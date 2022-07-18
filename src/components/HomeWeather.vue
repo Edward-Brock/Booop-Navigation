@@ -28,7 +28,7 @@ onMounted(
             output: 'json'
         }
     }).then(res => {
-        console.log(res)
+        // console.log(res)
         data.weather = res.data.lives[0]
     })
 )
