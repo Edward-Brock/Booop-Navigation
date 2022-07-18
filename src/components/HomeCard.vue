@@ -2,19 +2,16 @@
     <div class="container">
         <!--标签区-->
         <div class="cardTagContainer">
-            <a class="tagAHref" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup" :href="'#'+index">
-                <div class="cardTag">
-                    {{ cardGroup.title }}
-                </div>
-            </a>
+            <div class="cardTag" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
+                 @click="goAnchor('#tag' + index)">
+                {{ cardGroup.title }}
+            </div>
         </div>
         <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup">
             <!--标题-->
-            <h1>
-                <a :name="index">
-                    {{ cardGroup.title }}
-                </a>
+            <h1 :id="'tag' + index">
+                {{ cardGroup.title }}
             </h1>
             <!--卡片主窗体-->
             <div class="cardGroup">
@@ -54,6 +51,14 @@ function urlHrefHandler(url) {
     window.open(url, '_blank')
 }
 
+// 标题锚点
+function goAnchor(selector) {
+    // console.log(selector)
+    document.querySelector(selector).scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
 onMounted(() => {
     axios({
         method: "GET",
@@ -78,23 +83,22 @@ onMounted(() => {
     margin-bottom: 40px;
 
     .cardTag {
+        color: rgba(0, 0, 0, .5);
         font-size: 16px;
         font-weight: bold;
         margin: 6px 12px 6px 0;
         padding: 8px 16px;
         box-sizing: border-box;
         border-radius: 50px;
-        border: solid 3px #EEEEEE;
-    }
+        border: solid 3px rgba(0, 0, 0, .1);
+        cursor: pointer;
+        background: #fafafa;
 
-    .tagAHref:link, :visited, :active {
-        color: #AAAAAA;
-        text-decoration: none;
-    }
-
-    .tagAHref:hover {
-        color: #888888;
-        text-decoration: underline;
+        &:hover {
+            color: rgba(0, 0, 0, .75);
+            border: solid 3px rgba(0, 0, 0, .5);
+            text-decoration: underline wavy rgba(0, 0, 0, .6);
+        }
     }
 }
 
