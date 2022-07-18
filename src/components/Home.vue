@@ -16,8 +16,6 @@ import HomeInput from './HomeInput.vue'
 import HomeCard from './HomeCard.vue'
 import HomeHeader from './HomeHeader.vue'
 import HomeWeather from './HomeWeather.vue'
-
-console.log(import.meta.env.VITE_WEATHER_KEY)
 </script>
 
 <style scoped lang="scss">
