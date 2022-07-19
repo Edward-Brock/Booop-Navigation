@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+        <el-skeleton v-if="!isLoading" :rows="10" animated/>
+        <span v-if="isLoading">
         <!--标签区-->
         <div class="cardTagContainer">
             <div class="cardTag" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
@@ -7,7 +9,7 @@
                 {{ cardGroup.title }}
             </div>
         </div>
-        <!--卡片群主框架区-->
+            <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup">
             <!--标题-->
             <h1 :id="'tag' + index">
@@ -33,6 +35,7 @@
             </div>
             <el-backtop/>
         </div>
+            </span>
     </div>
 </template>
 
@@ -60,13 +63,18 @@ function goAnchor(selector) {
     });
 }
 
+let isLoading = ref(true)
+
 onMounted(() => {
+    console.log(isLoading.value)
     axios({
         method: "GET",
         url: "https://www.fastmock.site/mock/302df2b3fdf407067f03b4121b1b0da9/my/info"
     }).then(response => {
         if (response.status === 200) {
             card.cardInfo = response.data
+            isLoading = false
+            console.log(isLoading)
         }
     })
 })
