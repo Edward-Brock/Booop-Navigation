@@ -87,7 +87,7 @@ onMounted(() => {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    //margin-bottom: 40px;
 
     .cardTag {
         color: rgba(0, 0, 0, .5);
