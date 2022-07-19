@@ -91,13 +91,13 @@ onMounted(() => {
         padding: 8px 16px;
         box-sizing: border-box;
         border-radius: 50px;
-        border: solid 3px rgba(0, 0, 0, .1);
+        border: solid 2px rgba(0, 0, 0, .1);
         cursor: pointer;
         background: #fafafa;
 
         &:hover {
             color: rgba(0, 0, 0, .75);
-            border: solid 3px rgba(0, 0, 0, .5);
+            border: solid 2px rgba(0, 0, 0, .5);
             text-decoration: underline wavy rgba(0, 0, 0, .6);
         }
     }
