@@ -25,7 +25,7 @@
                         </div>
                         <!--卡片文字部分-->
                         <div class="cardTextContent">
-                            <div class="cardTitle">{{ card.title }}</div>
+                            <div class="cardTitle"><span>{{ card.title }}</span></div>
                             <div class="cardSubtitle">{{ card.subTitle }}</div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @mixin fontFamily {
-    font-family: "Bahnschrift", "苹方", "思源黑体", "思源宋体 CN";
+    font-family: "Bahnschrift", "PingFang SC", "苹方", "思源黑体", "思源宋体 CN";
 }
 
 .cardTagContainer {
@@ -98,7 +98,7 @@ onMounted(() => {
         &:hover {
             color: rgba(0, 0, 0, .75);
             border: solid 2px rgba(0, 0, 0, .5);
-            text-decoration: underline wavy rgba(0, 0, 0, .6);
+            text-decoration: underline rgba(0, 0, 0, .6);
         }
     }
 }
@@ -129,20 +129,24 @@ onMounted(() => {
         border: rgba(50, 50, 50, .1) 2px solid;
 
         &:hover {
-            border: rgba(50, 50, 50, .1) 2px solid;
+            border: rgba(50, 50, 50, .15) 2px solid;
             box-shadow: 0 20px 60px rgba(50, 50, 50, .1);
         }
 
         .cardBgHref {
+            color: #606060;
             height: 100%;
             display: flex;
             align-items: center;
             padding: 20px 10px 20px 20px;
             box-sizing: border-box;
 
-            &:link, &:hover, &:active, &:visited {
-                color: black;
-                text-decoration: none;
+            &:hover {
+                color: #000000;
+
+                span {
+                    text-decoration: underline wavy;
+                }
             }
         }
 
