@@ -109,13 +109,15 @@ onMounted(() => {
 }
 
 .cardContainer {
-    margin-bottom: 40px;
+    //margin-bottom: 40px;
 
     h1 {
         @include fontFamily;
         margin-bottom: 20px;
         letter-spacing: 1.5px;
         font-weight: bold;
+        // 解决快捷区点击跳转后 h1 标签直接置顶
+        padding-top: 64px;
     }
 
     .cardGroup {
