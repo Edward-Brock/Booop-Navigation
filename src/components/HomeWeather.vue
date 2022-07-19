@@ -43,7 +43,12 @@ const data = reactive({
     font-family: 'Bahnschrift';
 }
 
+@mixin fontFamilyText {
+    font-family: "PingFang SC", "苹方", "思源黑体", "华文中宋";
+}
+
 .container {
+    @include fontFamilyText;
     margin: 20px 0;
     width: 100%;
 }
@@ -56,12 +61,12 @@ const data = reactive({
 }
 
 .infoGroup {
+    @include fontFamily;
     height: 48px;
     display: flex;
     flex-direction: row;
 
     .wenDu {
-        @include fontFamily;
         font-size: 48px;
         margin-right: 20px;
         display: flex;

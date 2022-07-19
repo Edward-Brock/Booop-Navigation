@@ -8,6 +8,9 @@
             <HomeInput/>
             <HomeCard/>
         </el-main>
+        <el-footer>
+            <HomeFooter/>
+        </el-footer>
     </el-container>
 </template>
 
@@ -16,6 +19,7 @@ import HomeInput from './HomeInput.vue'
 import HomeCard from './HomeCard.vue'
 import HomeHeader from './HomeHeader.vue'
 import HomeWeather from './HomeWeather.vue'
+import HomeFooter from './HomeFooter.vue';
 </script>
 
 <style scoped lang="scss">
@@ -44,6 +48,12 @@ import HomeWeather from './HomeWeather.vue'
 .el-main {
     @include width-padding;
     margin-top: 60px;
+}
+
+.el-footer {
+    @include width-padding;
+    background: #FFFFFF;
+    border-top: solid 1px var(--el-menu-border-color);
 }
 
 </style>
