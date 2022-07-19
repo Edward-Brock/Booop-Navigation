@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <el-skeleton v-if="!isLoading" :rows="10" animated/>
-        <span v-if="isLoading">
+        <el-skeleton v-show="!isLoading" :rows="10" animated/>
+        <span v-show="isLoading">
         <!--标签区-->
         <div class="cardTagContainer">
             <div class="cardTag" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
@@ -66,7 +66,6 @@ function goAnchor(selector) {
 let isLoading = ref(true)
 
 onMounted(() => {
-    console.log(isLoading.value)
     axios({
         method: "GET",
         url: "https://www.fastmock.site/mock/302df2b3fdf407067f03b4121b1b0da9/my/info"
@@ -74,7 +73,6 @@ onMounted(() => {
         if (response.status === 200) {
             card.cardInfo = response.data
             isLoading = false
-            console.log(isLoading)
         }
     })
 })
