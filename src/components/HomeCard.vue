@@ -133,11 +133,11 @@ onMounted(() => {
         }
 
         .cardBgHref {
-            color: #606060;
+            color: #666666;
             height: 100%;
             display: flex;
             align-items: center;
-            padding: 20px 10px 20px 20px;
+            padding: 20px;
             box-sizing: border-box;
 
             &:hover {
@@ -147,23 +147,20 @@ onMounted(() => {
 
         .cardImages {
             background: #FFFFFF;
-            margin-right: 10px;
         }
 
         .cardTextContent {
             @include fontFamily;
             width: 140px;
-            height: 100%;
             padding: 0 10px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            white-space: nowrap;
         }
 
         .cardTitle {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bolder;
             letter-spacing: 1px;
         }
