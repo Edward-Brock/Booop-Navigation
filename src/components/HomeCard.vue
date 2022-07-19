@@ -71,8 +71,9 @@ onMounted(() => {
         url: "https://www.fastmock.site/mock/302df2b3fdf407067f03b4121b1b0da9/my/info"
     }).then(response => {
         if (response.status === 200) {
-            card.cardInfo = response.data
+            console.log(response)
             isLoading = false
+            card.cardInfo = response.data
         }
     })
 })
