@@ -26,12 +26,17 @@ import HomeWeather from './HomeWeather.vue'
     box-sizing: border-box;
 }
 
+.el-container {
+    background: #fafafa;
+}
+
 .el-header {
     //@include width-padding;
     position: fixed;
     width: 100%;
     z-index: 999;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(255, 255, 255, .25);
     backdrop-filter: saturate(180%) blur(20px);
     border-bottom: solid 1px var(--el-menu-border-color);
 }
@@ -39,7 +44,6 @@ import HomeWeather from './HomeWeather.vue'
 .el-main {
     @include width-padding;
     margin-top: 60px;
-    background: #fafafa;
 }
 
 </style>
