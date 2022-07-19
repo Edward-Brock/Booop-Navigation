@@ -98,7 +98,6 @@ onMounted(() => {
         &:hover {
             color: rgba(0, 0, 0, .75);
             border: solid 2px rgba(0, 0, 0, .5);
-            text-decoration: underline rgba(0, 0, 0, .6);
         }
     }
 }
@@ -143,10 +142,6 @@ onMounted(() => {
 
             &:hover {
                 color: #000000;
-
-                span {
-                    text-decoration: underline wavy;
-                }
             }
         }
 
