@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <el-skeleton v-show="!isLoading" :rows="10" animated/>
-        <span v-show="isLoading">
+        <el-skeleton v-show="card.isLoading" :rows="10" animated/>
+        <span v-show="!card.isLoading">
         <!--标签区-->
         <div class="cardTagContainer">
             <div class="cardTag" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
@@ -45,6 +45,7 @@ import {onMounted, reactive, ref, toRefs} from "vue";
 import axios from "axios";
 
 const card = reactive({
+    isLoading: true,
     cardInfo: ''
 })
 
@@ -63,16 +64,14 @@ function goAnchor(selector) {
     });
 }
 
-let isLoading = ref(true)
-
 onMounted(() => {
     axios({
         method: "GET",
         url: "https://www.fastmock.site/mock/302df2b3fdf407067f03b4121b1b0da9/my/info"
     }).then(response => {
         if (response.status === 200) {
-            console.log(response)
-            isLoading = false
+            // console.log(response)
+            card.isLoading = false
             card.cardInfo = response.data
         }
     })
