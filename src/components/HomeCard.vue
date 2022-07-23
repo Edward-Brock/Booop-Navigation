@@ -99,7 +99,7 @@ function unique(arr, val) {
 onMounted(() => {
     axios({
         method: "GET",
-        url: "http://101.43.207.195:8085/navigation"
+        url: "https://pma.booop.net/navigation"
     }).then(response => {
         // console.log(response)
         if (response.status === 200) {
