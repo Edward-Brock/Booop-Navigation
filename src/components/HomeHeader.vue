@@ -63,6 +63,10 @@ function loginCheck() {
     font-family: "Century Gothic", "Sitka Text", "PingFang SC", "苹方", "思源黑体", "华文中宋";
 }
 
+* {
+    @include fontFamily;
+}
+
 .el-menu-demo {
     height: 100%;
     padding: 0 9%;
@@ -79,7 +83,6 @@ function loginCheck() {
 }
 
 .title {
-    @include fontFamily;
     display: flex;
     align-self: center;
     font-size: 1.25em;

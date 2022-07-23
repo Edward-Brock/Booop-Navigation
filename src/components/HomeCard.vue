@@ -118,6 +118,10 @@ onMounted(() => {
     font-family: "Bahnschrift", "PingFang SC", "苹方", "思源黑体", "思源宋体 CN";
 }
 
+* {
+    @include fontFamily;
+}
+
 .cardTagContainer {
     display: flex;
     flex-direction: row;
@@ -147,7 +151,6 @@ onMounted(() => {
     //margin-bottom: 40px;
 
     h1 {
-        @include fontFamily;
         margin-bottom: 20px;
         letter-spacing: 1.5px;
         font-weight: bold;
@@ -193,7 +196,6 @@ onMounted(() => {
         }
 
         .cardTextContent {
-            @include fontFamily;
             width: 140px;
             padding: 0 10px;
             box-sizing: border-box;

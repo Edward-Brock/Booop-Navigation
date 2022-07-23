@@ -40,7 +40,7 @@ const data = reactive({
 
 <style scoped lang="scss">
 @mixin fontFamily {
-    font-family: 'Bahnschrift';
+    font-family: 'Tw Cen MT', 'Bahnschrift', 'Arial', '苹方';
 }
 
 @mixin fontFamilyText {
@@ -84,6 +84,7 @@ const data = reactive({
     }
 
     .otherInfo {
+        @include fontFamilyText;
         height: 48px;
         color: #888888;
         font-size: 16px;
