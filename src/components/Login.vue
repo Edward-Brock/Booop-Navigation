@@ -1,37 +1,27 @@
 <template>
     <div class="container">
-        <div class="img_box"></div>
         <div class="content">
             <div class="basic_content">
                 <div class="logoTitleContainer">
-                    <div class="logoTitle">{{ logoText }}</div>
+                    <div class="logoTitle">{{ Form.logoText }}</div>
                 </div>
-                <el-form class="basic_form" :model="Info">
+                <el-form class="basic_form" :model="Form">
                     <el-form-item>
-                        <el-input v-model.trim="Info.userName" class="basic_form_component" size="large" autofocus
+                        <el-input v-model.trim="Form.username" class="basic_form_component" size="large" autofocus
                                   placeholder="用户名">
-                            <template #prefix>
-                                <el-icon>
-                                    <User/>
-                                </el-icon>
-                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-input v-model.trim="Info.passWord" class="basic_form_component" show-password size="large"
+                        <el-input v-model.trim="Form.password" class="basic_form_component" show-password
+                                  size="large"
                                   placeholder="密码">
-                            <template #prefix>
-                                <el-icon>
-                                    <Lock/>
-                                </el-icon>
-                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-checkbox label="记住我" name="type" v-model="Info.remember"/>
+                        <el-checkbox label="记住我" name="type" v-model="Form.remember"/>
                     </el-form-item>
                     <el-form-item>
-                        <el-button style="width: 100%" type="primary" @click="login" :loading="loading"
+                        <el-button style="width: 100%" type="primary" @click="login" :loading="Form.loading"
                                    :disabled="!btnDisabled"
                                    size="large"
                                    round>登录
@@ -43,78 +33,48 @@
     </div>
 </template>
 
-<script>
-import {reactive, toRefs, computed} from "vue";
+<script setup>
+import {computed, reactive} from "vue";
 import {useRouter} from 'vue-router';
 import {ElMessage} from 'element-plus'
-import {User, Lock} from '@element-plus/icons-vue'
 import axios from 'axios'
 
-export default {
-    components: {
-        User,
-        Lock
-    },
-    setup() {
-        const router = useRouter();
-        let Form = reactive({
-            fullWidth: document.documentElement.clientWidth,
-            logoText: "booop navigation",
-            bgImage: "",
-            loading: false,
-            Info: {
-                userName: "",
-                passWord: "",
-                remember: false
-            }
-        })
+const router = useRouter();
+let Form = reactive({
+    logoText: "booop navigation",
+    loading: false,
+    username: "",
+    password: "",
+    remember: false
+})
 
-        //背景壁纸自适应
-        function handleResize() {
-            this.fullWidth = document.documentElement.clientWidth
+function login() {
+    Form.loading = true
+    axios.post("http://127.0.0.1/api/login", {
+        username: Form.username,
+        password: Form.password
+    }).then(res => {
+        console.log(res)
+        if (res.data.status === 0) {
+            localStorage.setItem("isLogin", true)
+            localStorage.setItem("id", res.data.id)
+            localStorage.setItem("user_status", res.data.user_status)
+            localStorage.setItem("avatarUrl", res.data.avatar_url)
+            localStorage.setItem("username", res.data.username)
+            localStorage.setItem("token", res.data.token)
+            router.push('/')
         }
-
-        function login() {
-            Form.loading = true
-            axios.post("http://127.0.0.1:8088/api/login", Form.Info).then(res => {
-                console.log(res)
-                if (res.data.status) {
-                    window.sessionStorage.setItem("token", res.data.token)
-                    window.sessionStorage.setItem("avatarUrl", res.data.avatarUrl)
-                    window.sessionStorage.setItem("userName", res.data.userName)
-                    router.push('/home')
-                } else {
-                    Form.Info.userName = '', Form.Info.passWord = '', Form.Info.remember = 'false'
-                    Form.loading = false
-                    return ElMessage.error(res.data.message)
-                }
-            })
+        if (res.data.status === 1) {
+            Form.username = '', Form.password = '', Form.remember = false, Form.loading = false
+            ElMessage.error(res.data.message)
         }
-
-        //计算机登录按钮是否可用
-        const btnDisabled = computed(() => {
-            return Form.Info.userName && Form.Info.passWord
-        })
-
-        return {
-            ...toRefs(Form),
-            handleResize,
-            login,
-            btnDisabled
-        }
-    },
-    created() {
-        window.addEventListener('resize', this.handleResize)
-    },
-    mounted() {
-        if (window.sessionStorage.getItem("token")) {
-            useRouter().push('/home')
-        }
-    },
-    beforeUnmount: function () {
-        window.removeEventListener('resize', this.handleResize)
-    }
+    })
 }
+
+//计算机登录按钮是否可用
+const btnDisabled = computed(() => {
+    return Form.username && Form.password
+})
 </script>
 
 <style scoped lang="scss">
@@ -124,15 +84,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.img_box {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: -999;
-    background-size: cover;
-    background-color: #FAFAFA;
 }
 
 .basic_content {

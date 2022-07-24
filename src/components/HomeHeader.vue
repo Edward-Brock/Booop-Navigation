@@ -11,35 +11,36 @@
         <el-menu-item index="0">首页</el-menu-item>
         <el-menu-item index="1">博客</el-menu-item>
         <!--登录/头像显示区-->
-        <!--
         <div v-if="!isLogin">
             <router-link to="/login">
-                <el-button class="loginBtn" @click="loginCheck" size="large" text>登录</el-button>
+                <el-button class="loginBtn" size="large" text>登录</el-button>
             </router-link>
         </div>
         <div v-if="isLogin">
             <el-dropdown trigger="click" style="height: 100%">
                 <div class="circleAvatar">
                     <el-avatar :src="circleUrl"/>
-                    <span>admin</span>
+                    <span>{{ username }}</span>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item>个人中心</el-dropdown-item>
-                        <el-dropdown-item>退出</el-dropdown-item>
+                        <el-dropdown-item @click="signOut">退出</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
         </div>
-        -->
     </el-menu>
 </template>
 <script setup>
 import {ref} from 'vue'
 
 const activeIndex = ref('0')
-const isLogin = ref(false)
+let isLogin = localStorage.getItem("isLogin")
+let circleUrl = localStorage.getItem("avatarUrl")
+let username = localStorage.getItem("username")
 
+// 根据标题栏点击数值切换
 function handleSelect(value) {
     switch (value) {
         case '0':
@@ -51,11 +52,14 @@ function handleSelect(value) {
     }
 }
 
-function loginCheck() {
-    const isLoginTag = localStorage.getItem("isLogin");
-    if (isLogin) {
-        localStorage.setItem("isLogin", "false");
-    }
+// 用户退出
+function signOut() {
+    window.location.reload();
+    localStorage.clear();
+    ElMessage({
+        message: '成功退出',
+        type: 'success',
+    })
 }
 </script>
 <style scoped lang="scss">
