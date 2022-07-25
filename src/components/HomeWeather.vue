@@ -49,7 +49,7 @@ const data = reactive({
 
 .container {
     @include fontFamilyText;
-    margin: 20px 0;
+    margin: 20px 0 40px 0;
     width: 100%;
 }
 

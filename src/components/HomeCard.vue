@@ -111,6 +111,14 @@ onMounted(() => {
         }
     })
 })
+
+let oDiv = document.querySelectorAll(".cardGroup div");
+for (var i = oDiv.length - 1; i >= 0; i--) {
+    oDiv[i].onclick = function () {
+        this.remove();
+    }
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -160,8 +168,13 @@ onMounted(() => {
 
     .cardGroup {
         display: flex;
-        justify-content: left;
+        justify-content: space-between;
         flex-wrap: wrap;
+
+        & div:last-child {
+            /* 让最后一个元素的右边距自动适应，从而实现左对齐的效果。 */
+            margin-right: auto;
+        }
     }
 
     .cardBg {
@@ -172,6 +185,15 @@ onMounted(() => {
         overflow: hidden;
         cursor: pointer;
         border: rgba(50, 50, 50, .1) 2px solid;
+
+        @media only screen and (max-width: 992px) {
+            width: 30%;
+            margin: 1% 2.7% 1% 0;
+        }
+        @media only screen and (max-width: 768px) {
+            width: 45%;
+            margin: 2% 3% 2% 0;
+        }
 
         &:hover {
             border: rgba(50, 50, 50, .15) 2px solid;
@@ -189,10 +211,18 @@ onMounted(() => {
             &:hover {
                 color: #000000;
             }
+
+            @media only screen and (max-width: 768px) {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         .cardImages {
             background: #FFFFFF;
+            @media only screen and (max-width: 768px) {
+                margin-bottom: 8px;
+            }
         }
 
         .cardTextContent {
@@ -202,12 +232,23 @@ onMounted(() => {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            @media only screen and (max-width: 992px) {
+                width: 100%;
+                overflow: hidden;
+            }
+            @media only screen and (max-width: 768px) {
+                width: 100%;
+                align-items: center;
+            }
         }
 
         .cardTitle {
             font-size: 16px;
             font-weight: bolder;
             letter-spacing: 1px;
+            @media only screen and (max-width: 768px) {
+                text-align: center;
+            }
         }
 
         .cardSubtitle {
@@ -217,6 +258,9 @@ onMounted(() => {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            @media only screen and (max-width: 768px) {
+                text-align: center;
+            }
         }
     }
 }

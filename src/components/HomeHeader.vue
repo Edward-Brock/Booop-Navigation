@@ -6,39 +6,21 @@
         :ellipsis="false"
         @select="handleSelect"
     >
-        <div class="title">booop 导航</div>
+        <div class="title">booop</div>
+        <div v-show="lightStatus.isShow" class="status_light_group hidden-xs-only">
+            <div class="status_light_display" :class="lightStatus"></div>
+            <div class="status_light_text">{{ projectStatus }}</div>
+        </div>
         <div class="flex-grow"/>
         <el-menu-item index="0">首页</el-menu-item>
         <el-menu-item index="1">博客</el-menu-item>
-        <!--登录/头像显示区-->
-        <div v-if="!isLogin">
-            <router-link to="/login">
-                <el-button class="loginBtn" size="large" text>登录</el-button>
-            </router-link>
-        </div>
-        <div v-if="isLogin">
-            <el-dropdown trigger="click" style="height: 100%">
-                <div class="circleAvatar">
-                    <el-avatar :src="circleUrl"/>
-                    <span>{{ username }}</span>
-                </div>
-                <template #dropdown>
-                    <el-dropdown-menu>
-                        <el-dropdown-item>个人中心</el-dropdown-item>
-                        <el-dropdown-item @click="signOut">退出</el-dropdown-item>
-                    </el-dropdown-menu>
-                </template>
-            </el-dropdown>
-        </div>
     </el-menu>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
+import axios from "axios";
 
 const activeIndex = ref('0')
-let isLogin = localStorage.getItem("isLogin")
-let circleUrl = localStorage.getItem("avatarUrl")
-let username = localStorage.getItem("username")
 
 // 根据标题栏点击数值切换
 function handleSelect(value) {
@@ -52,15 +34,33 @@ function handleSelect(value) {
     }
 }
 
-// 用户退出
-function signOut() {
-    window.location.reload();
-    localStorage.clear();
-    ElMessage({
-        message: '成功退出',
-        type: 'success',
+// 数据库连接状态指示
+let projectStatus = ref("")
+const lightStatus = reactive({
+    isShow: true,
+    isNormal: false,
+    isError: false
+})
+onMounted(() => {
+    axios({
+        method: "GET",
+        url: "https://api.booop.net/navigation"
+    }).then(response => {
+        console.log(response)
+        if (response.status !== 200 || response.data.status !== 0) {
+            projectStatus.value = response.statusText
+            lightStatus.isError = true
+            lightStatus.isNormal = false
+        } else {
+            projectStatus.value = response.status + " - " + response.data.message
+            lightStatus.isError = false
+            lightStatus.isNormal = true
+        }
     })
-}
+    setTimeout(function () {
+        lightStatus.isShow = false
+    }, 3000)
+})
 </script>
 <style scoped lang="scss">
 @mixin fontFamily {
@@ -74,7 +74,14 @@ function signOut() {
 .el-menu-demo {
     height: 100%;
     padding: 0 9%;
+    @media only screen and (max-width: 992px) {
+        padding: 0 8.5%;
+    }
+    @media only screen and (max-width: 768px) {
+        padding: 0 4.5%;
+    }
 }
+
 
 .el-menu {
     background-color: rgba(255, 255, 255, .72) !important;
@@ -91,6 +98,39 @@ function signOut() {
     align-self: center;
     font-size: 1.25em;
     font-weight: bold;
+}
+
+.status_light_group {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    background: rgba(220, 220, 220, .25);
+    margin-left: 8px;
+    padding: 4px 4px;
+    border-radius: 50px;
+    box-sizing: border-box;
+
+    .status_light_display {
+        width: 10px;
+        height: 10px;
+        background: #888888;
+        border-radius: 50px;
+        margin: 4px;
+    }
+
+    .isNormal {
+        background: lime;
+    }
+
+    .isError {
+        background: red;
+    }
+
+    .status_light_text {
+        color: rgba(0, 0, 0, .75);
+        margin-right: 4px;
+    }
 }
 
 .flex-grow {

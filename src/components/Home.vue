@@ -1,11 +1,11 @@
 <template>
     <el-container>
-        <el-header>
+        <el-header height="52px">
             <HomeHeader/>
         </el-header>
         <el-main>
             <HomeWeather/>
-            <HomeInput/>
+            <!--<HomeInput/>-->
             <HomeCard/>
         </el-main>
         <el-footer>
