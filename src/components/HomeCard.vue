@@ -171,9 +171,11 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
         justify-content: space-between;
         flex-wrap: wrap;
 
-        & div:last-child {
-            /* 让最后一个元素的右边距自动适应，从而实现左对齐的效果。 */
-            margin-right: auto;
+        @media only screen and (min-width: 768px) {
+            & div:last-child {
+                /* 让最后一个元素的右边距自动适应，从而实现左对齐的效果。 */
+                margin-right: auto;
+            }
         }
     }
 
@@ -186,9 +188,13 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
         cursor: pointer;
         border: rgba(50, 50, 50, .1) 2px solid;
 
+        @media only screen and (min-width: 992px) {
+            width: 220px;
+        }
+
         @media only screen and (max-width: 992px) {
             width: 30%;
-            margin: 1% 2.7% 1% 0;
+            margin: 1% 2.5% 1% 0;
         }
         @media only screen and (max-width: 768px) {
             width: 45%;
@@ -232,6 +238,10 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            @media only screen and (min-width: 992px) {
+                width: 150px;
+                overflow: hidden;
+            }
             @media only screen and (max-width: 992px) {
                 width: 100%;
                 overflow: hidden;
