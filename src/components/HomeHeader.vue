@@ -86,14 +86,6 @@ onMounted(() => {
   align-items: center;
 }
 
-.el-menu--horizontal > .el-menu-item.is-active {
-  border-bottom: 0 solid var(--el-menu-active-color) !important;
-}
-
-.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
-  background: none !important;
-}
-
 .title {
   display: flex;
   align-self: center;
