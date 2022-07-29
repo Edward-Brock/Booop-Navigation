@@ -6,7 +6,9 @@
     </el-header>
     <el-container>
       <!--侧边栏容器-->
-      <el-aside class="hidden-xs-only">booop</el-aside>
+      <el-aside class="hidden-xs-only">
+        <HomeAside/>
+      </el-aside>
       <el-container>
         <!--主要区域容器-->
         <el-main>
@@ -28,15 +30,10 @@ import HomeCard from './HomeCard.vue'
 import HomeHeader from './HomeHeader.vue'
 import HomeWeather from './HomeWeather.vue'
 import HomeFooter from './HomeFooter.vue';
+import HomeAside from "./HomeAside.vue";
 </script>
 
 <style scoped lang="scss">
-// 页面整体宽度
-@mixin width-padding {
-  padding-left: 5%;
-  padding-right: 5%;
-  box-sizing: border-box;
-}
 
 .el-container {
   background: #fafafa;
@@ -44,7 +41,6 @@ import HomeFooter from './HomeFooter.vue';
 }
 
 .el-header {
-  @include width-padding;
   height: 52px;
   width: calc(100vw);
   position: fixed;
@@ -57,18 +53,18 @@ import HomeFooter from './HomeFooter.vue';
 
 .el-aside {
   height: 100vh;
-  width: 14vw;
+  width: 200px;
+  padding-top: 52px;
+  box-sizing: border-box;
   border-right: solid 1px var(--el-menu-border-color);
 }
 
 .el-main {
-  @include width-padding;
   padding-top: 52px;
   box-sizing: border-box;
 }
 
 .el-footer {
-  @include width-padding;
   background: #FFFFFF;
   border-top: solid 1px var(--el-menu-border-color);
 }
