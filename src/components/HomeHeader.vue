@@ -6,7 +6,9 @@
       :ellipsis="false"
       @select="handleSelect"
   >
-    <div class="title">booop</div>
+    <div class="title">
+      <img class="booop-logo" src="/src/assets/login_logo_396_118_black.png" alt="logo">
+    </div>
     <div v-show="lightStatus.isShow" class="status_light_group hidden-xs-only">
       <div class="status_light_display" :class="lightStatus"></div>
       <div class="status_light_text">{{ projectStatus }}</div>
@@ -62,12 +64,8 @@ onMounted(() => {
 })
 </script>
 <style scoped lang="scss">
-@mixin fontFamily {
-  font-family: "Century Gothic", "Sitka Text", "PingFang SC", "苹方", "思源黑体", "华文中宋";
-}
-
 * {
-  @include fontFamily;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 
 .el-menu-demo {
@@ -100,10 +98,15 @@ onMounted(() => {
 }
 
 .title {
+  width: 100px;
   display: flex;
   align-self: center;
   font-size: 1.25em;
   font-weight: bold;
+
+  .booop-logo {
+    width: 100%;
+  }
 }
 
 .status_light_group {
