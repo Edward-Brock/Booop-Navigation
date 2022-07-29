@@ -72,8 +72,22 @@ onMounted(() => {
 
 .el-menu-demo {
   height: 100%;
-}
 
+  @media only screen and (min-width: 768px) {
+    padding: 0 4%;
+    box-sizing: border-box;
+  }
+
+  @media only screen and (min-width: 992px) {
+    padding: 0 4%;
+    box-sizing: border-box;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    padding: 0 2.5%;
+    box-sizing: border-box;
+  }
+}
 
 .el-menu {
   background-color: rgba(255, 255, 255, .72) !important;

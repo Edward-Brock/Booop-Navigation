@@ -52,15 +52,21 @@ function goAnchor(selector) {
     font-size: 16px;
     font-weight: bold;
     margin: 8px;
-    padding: 12px 12px 12px 20px;
+    padding: 15px 12px 15px 30px;
     box-sizing: border-box;
     border-radius: 50px;
     cursor: pointer;
     background: #fafafa;
 
     &:hover {
-      color: rgba(0, 0, 0, .75);
-      background: rgba(200, 200, 200, .5);
+      color: rgba(0, 0, 0, 1);
+      background: rgba(200, 200, 200, .2);
+
+      &:after {
+        content: "➔";
+        font-size: 14px;
+        margin-left: 8px;
+      }
     }
   }
 }

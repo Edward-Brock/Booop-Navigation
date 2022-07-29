@@ -11,7 +11,6 @@
         <div>{{ data.weather.winddirection }}风</div>
       </div>
     </div>
-
   </div>
 </template>
 

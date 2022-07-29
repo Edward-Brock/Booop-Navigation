@@ -15,11 +15,8 @@
           <HomeWeather/>
           <!--<HomeInput/>-->
           <HomeCard/>
-        </el-main>
-        <!--底栏容器-->
-        <el-footer>
           <HomeFooter/>
-        </el-footer>
+        </el-main>
       </el-container>
     </el-container>
   </el-container>
@@ -42,7 +39,7 @@ import HomeAside from "./HomeAside.vue";
 
 .el-header {
   height: 52px;
-  width: calc(100vw);
+  width: 100vw;
   position: fixed;
   z-index: 999;
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -52,7 +49,7 @@ import HomeAside from "./HomeAside.vue";
 }
 
 .el-aside {
-  height: 100vh;
+  height: 100%;
   width: 200px;
   padding-top: 52px;
   box-sizing: border-box;
@@ -60,13 +57,18 @@ import HomeAside from "./HomeAside.vue";
 }
 
 .el-main {
+  height: 100vh;
   padding-top: 52px;
   box-sizing: border-box;
 }
 
 .el-footer {
   background: #FFFFFF;
-  border-top: solid 1px var(--el-menu-border-color);
+  //border-top: solid 1px var(--el-menu-border-color);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, .25);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: solid 1px var(--el-menu-border-color);
 }
 
 </style>

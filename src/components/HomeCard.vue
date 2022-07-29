@@ -26,10 +26,10 @@
                     </div>
                 </div>
             </div>
-            <el-backtop/>
         </div>
-            </span>
+    </span>
   </div>
+  <el-backtop/>
 </template>
 
 <script setup>
@@ -172,7 +172,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
     &:hover {
       border: rgba(50, 50, 50, .15) 2px solid;
-      box-shadow: 0 20px 60px rgba(50, 50, 50, .1);
+      box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
     }
 
     .cardBgHref {
