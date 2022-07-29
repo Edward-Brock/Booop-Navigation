@@ -56,7 +56,7 @@ import HomeAside from "./HomeAside.vue";
   width: 200px;
   padding-top: 52px;
   box-sizing: border-box;
-  border-right: solid 1px var(--el-menu-border-color);
+  //border-right: solid 1px var(--el-menu-border-color);
 }
 
 .el-main {

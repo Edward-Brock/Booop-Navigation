@@ -2,13 +2,6 @@
   <div class="container">
     <el-skeleton v-show="card.isLoading" :rows="10" animated/>
     <span v-show="!card.isLoading">
-        <!--标签区-->
-        <div class="cardTagContainer">
-            <div class="cardTag" v-for="(cardGroup,index) in card.partitionInfo" :key="cardGroup"
-                 @click="goAnchor('#tag' + index)">
-                {{ cardGroup.section_title }}
-            </div>
-        </div>
       <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup">
             <!--标题-->
@@ -43,6 +36,7 @@
 import 'element-plus/theme-chalk/display.css'
 import {onMounted, reactive, ref, toRefs} from "vue";
 import axios from "axios";
+import emitter from "../untils/bus";
 
 const card = reactive({
   isLoading: true,
@@ -56,15 +50,6 @@ const squareUrl = ref('https://booop.net/wp-content/uploads/2022/07/booop_logo_2
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
-}
-
-// 标题锚点
-function goAnchor(selector) {
-  // console.log(selector)
-  document.querySelector(selector).scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
 }
 
 //将card中数组通过section_id进行分类
@@ -104,10 +89,13 @@ onMounted(() => {
     // console.log(response)
     if (response.status === 200) {
       // console.log(response.data)
+      // 将数据通过 emitter 传递出去
+      emitter.emit("response", response)
       card.isLoading = false
       card.cardInfo = arrayGroupBy(response.data.data, 'section_id')
       // 从card中提取出每个分区的具体大标题
       card.partitionInfo = unique(response.data.data, 'section_id')
+      emitter.emit("partitionInfo", card.partitionInfo)
     }
   })
 })
@@ -128,31 +116,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
 * {
   @include fontFamily;
-}
-
-.cardTagContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  //margin-bottom: 40px;
-
-  .cardTag {
-    color: rgba(0, 0, 0, .5);
-    font-size: 16px;
-    font-weight: bold;
-    margin: 6px 12px 6px 0;
-    padding: 8px 16px;
-    box-sizing: border-box;
-    border-radius: 50px;
-    border: solid 2px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    background: #fafafa;
-
-    &:hover {
-      color: rgba(0, 0, 0, .75);
-      border: solid 2px rgba(0, 0, 0, .5);
-    }
-  }
 }
 
 .cardContainer {

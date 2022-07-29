@@ -18,7 +18,7 @@
 </template>
 <script setup>
 import {onMounted, reactive, ref} from 'vue'
-import axios from "axios";
+import emitter from "../untils/bus";
 
 const activeIndex = ref('0')
 
@@ -42,11 +42,9 @@ const lightStatus = reactive({
   isError: false
 })
 onMounted(() => {
-  axios({
-    method: "GET",
-    url: "https://api.booop.net/navigation"
-  }).then(response => {
-    console.log(response)
+  // 从HomeCard接收emitter发送的response数据
+  emitter.on("response", (response) => {
+    // console.log(response)
     if (response.status !== 200 || response.data.status !== 0) {
       projectStatus.value = response.statusText
       lightStatus.isError = true
@@ -57,6 +55,7 @@ onMounted(() => {
       lightStatus.isNormal = true
     }
   })
+
   setTimeout(function () {
     lightStatus.isShow = false
   }, 3000)
