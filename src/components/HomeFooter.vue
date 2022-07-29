@@ -17,7 +17,7 @@
 
 .container {
   @include fontFamily;
-  padding: 30px 0 20px 0;
+  padding: 30px 0 0 0;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
