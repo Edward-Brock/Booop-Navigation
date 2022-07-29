@@ -11,4 +11,10 @@
 
 ## 截图
 
-![图片](src/assets/hero-onePic.png)
+浅色模式
+
+![图片](src/assets/hero-light-one.png)
+
+暗黑模式
+
+![图片](src/assets/hero-dark-one.png)
