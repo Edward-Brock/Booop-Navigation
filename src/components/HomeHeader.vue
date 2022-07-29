@@ -23,7 +23,7 @@
   </el-menu>
 </template>
 <script setup>
-import {ref, watch} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {useDark, useToggle} from '@vueuse/core'
 import {Sunny, Moon} from '@element-plus/icons-vue'
 
@@ -46,21 +46,23 @@ function handleSelect(value) {
 }
 
 // 判断是否为暗色模式，切换logo颜色
-let logoImageSrc = ref("/src/assets/login_logo_396_118_black.png")
+let logoImageSrc = ref("../assets/login_logo_396_118_black.png")
 watch(isDark, (newValue, oldValue) => {
   console.log(newValue)
   if (newValue) {
-    logoImageSrc.value = "/src/assets/login_logo_396_118_white.png"
+    logoImageSrc.value = "../assets/login_logo_396_118_white.png"
   } else {
-    logoImageSrc.value = "/src/assets/login_logo_396_118_black.png"
+    logoImageSrc.value = "../assets/login_logo_396_118_black.png"
   }
 })
 
-if (localStorage.getItem("vueuse-color-scheme") === "dark") {
-  logoImageSrc.value = "/src/assets/login_logo_396_118_white.png"
-} else {
-  logoImageSrc.value = "/src/assets/login_logo_396_118_black.png"
-}
+onMounted(() => {
+  if (localStorage.getItem("vueuse-color-scheme") === "dark") {
+    logoImageSrc.value = "../assets/login_logo_396_118_white.png"
+  } else {
+    logoImageSrc.value = "../assets/login_logo_396_118_black.png"
+  }
+})
 </script>
 <style scoped lang="scss">
 .el-menu-demo {
