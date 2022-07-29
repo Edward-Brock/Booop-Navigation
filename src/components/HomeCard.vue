@@ -16,7 +16,7 @@
                     <div class="cardBgHref">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
-                                       :src="card.url_pic ? card.url_pic : squareUrl"/>
+                                       :src="card.url_pic ? card.url_pic : cradLogo"/>
                         </div>
                       <!--卡片文字部分-->
                         <div class="cardTextContent">
@@ -46,7 +46,7 @@ const card = reactive({
   partitionInfo: ''
 })
 
-const squareUrl = ref('src/assets/booop_logo_512_512_Black_white.png')
+import cradLogo from '../assets/booop_logo_512_512_Black_white.png'
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
