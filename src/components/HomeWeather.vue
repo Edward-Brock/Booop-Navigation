@@ -39,15 +39,10 @@ const data = reactive({
 
 <style scoped lang="scss">
 @mixin fontFamily {
-  font-family: 'Tw Cen MT', 'Bahnschrift', 'Arial', '苹方';
-}
-
-@mixin fontFamilyText {
-  font-family: "PingFang SC", "苹方", "思源黑体", "华文中宋";
+  font-family: 'Tw Cen MT', 'Bahnschrift', 'Arial', '苹方', serif;
 }
 
 .container {
-  @include fontFamilyText;
   margin-top: 20px;
   width: 100%;
 }
@@ -83,7 +78,6 @@ const data = reactive({
   }
 
   .otherInfo {
-    @include fontFamilyText;
     height: 48px;
     color: #888888;
     font-size: 16px;

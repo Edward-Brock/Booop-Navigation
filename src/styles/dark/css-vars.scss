@@ -1,0 +1,68 @@
+@mixin fontDarkModeColor($alpha) {
+  color: rgba(255, 255, 255, $alpha) !important;
+}
+
+@mixin backgroundDarkModeColor($alpha) {
+  background: rgba(29, 29, 31, $alpha) !important;
+}
+
+@mixin cardBackgroundDarkModeColor($alpha) {
+  background: rgba(50, 50, 50, $alpha) !important;
+}
+
+html.dark {
+  .el-container {
+    background: none;
+  }
+
+  // 顶端栏深色模式背景颜色覆盖
+  .el-header {
+    @include backgroundDarkModeColor(.72);
+  }
+
+  // 分类标题
+  h1 {
+    @include fontDarkModeColor(.8);
+  }
+
+  // 卡片主背景
+  .cardBg {
+    @include cardBackgroundDarkModeColor(.25);
+    border: rgba(50, 50, 50, .4) 2px solid !important;
+
+    &:hover {
+      @include cardBackgroundDarkModeColor(.5);
+      border: rgba(50, 50, 50, 1) 2px solid !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // 卡片主背景链接
+  .cardBgHref {
+    @include fontDarkModeColor(.5);
+
+    &:hover {
+      @include fontDarkModeColor(.95);
+    }
+  }
+
+  // 卡片副标题
+  .cardSubtitle {
+    @include fontDarkModeColor(.5);
+  }
+
+  .cardTag {
+    @include fontDarkModeColor(.5);
+    background: rgba(50, 50, 50, .1) !important;
+
+    &:hover {
+      @include fontDarkModeColor(1);
+      background: rgba(50, 50, 50, .5) !important;
+    }
+  }
+
+  // 卡片logo背景
+  .el-avatar--circle {
+    background: none !important;
+  }
+}

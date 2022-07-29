@@ -7,20 +7,29 @@
       @select="handleSelect"
   >
     <div class="title">
-      <img class="booop-logo" src="/src/assets/login_logo_396_118_black.png" alt="logo">
+      <img class="booop-logo" :src="logoImageSrc" alt="logo">
     </div>
-    <div v-show="lightStatus.isShow" class="status_light_group hidden-xs-only">
-      <div class="status_light_display" :class="lightStatus"></div>
-      <div class="status_light_text">{{ projectStatus }}</div>
-    </div>
+    <el-switch
+        v-model="isDark"
+        class="mt-2"
+        style="margin-left: 10px"
+        inline-prompt
+        :active-icon="Sunny"
+        :inactive-icon="Moon"
+    />
     <div class="flex-grow"/>
     <el-menu-item index="0">首页</el-menu-item>
     <el-menu-item index="1">博客</el-menu-item>
   </el-menu>
 </template>
 <script setup>
-import {onMounted, reactive, ref} from 'vue'
-import emitter from "../untils/bus";
+import {ref, watch} from 'vue'
+import {useDark, useToggle} from '@vueuse/core'
+import {Sunny, Moon} from '@element-plus/icons-vue'
+
+// 暗黑模式
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 const activeIndex = ref('0')
 
@@ -36,38 +45,24 @@ function handleSelect(value) {
   }
 }
 
-// 数据库连接状态指示
-let projectStatus = ref("")
-const lightStatus = reactive({
-  isShow: true,
-  isNormal: false,
-  isError: false
+// 判断是否为暗色模式，切换logo颜色
+let logoImageSrc = ref("/src/assets/login_logo_396_118_black.png")
+watch(isDark, (newValue, oldValue) => {
+  console.log(newValue)
+  if (newValue) {
+    logoImageSrc.value = "/src/assets/login_logo_396_118_white.png"
+  } else {
+    logoImageSrc.value = "/src/assets/login_logo_396_118_black.png"
+  }
 })
-onMounted(() => {
-  // 从HomeCard接收emitter发送的response数据
-  emitter.on("response", (response) => {
-    // console.log(response)
-    if (response.status !== 200 || response.data.status !== 0) {
-      projectStatus.value = response.statusText
-      lightStatus.isError = true
-      lightStatus.isNormal = false
-    } else {
-      projectStatus.value = response.status + " - " + response.data.message
-      lightStatus.isError = false
-      lightStatus.isNormal = true
-    }
-  })
 
-  setTimeout(function () {
-    lightStatus.isShow = false
-  }, 3000)
-})
+if (localStorage.getItem("vueuse-color-scheme") === "dark") {
+  logoImageSrc.value = "/src/assets/login_logo_396_118_white.png"
+} else {
+  logoImageSrc.value = "/src/assets/login_logo_396_118_black.png"
+}
 </script>
 <style scoped lang="scss">
-* {
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-}
-
 .el-menu-demo {
   height: 100%;
 
@@ -106,39 +101,6 @@ onMounted(() => {
 
   .booop-logo {
     width: 100%;
-  }
-}
-
-.status_light_group {
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  background: rgba(220, 220, 220, .25);
-  margin-left: 8px;
-  padding: 4px 4px;
-  border-radius: 50px;
-  box-sizing: border-box;
-
-  .status_light_display {
-    width: 10px;
-    height: 10px;
-    background: #888888;
-    border-radius: 50px;
-    margin: 4px;
-  }
-
-  .isNormal {
-    background: lime;
-  }
-
-  .isError {
-    background: red;
-  }
-
-  .status_light_text {
-    color: rgba(0, 0, 0, .75);
-    margin-right: 4px;
   }
 }
 

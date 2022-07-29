@@ -46,7 +46,7 @@ const card = reactive({
   partitionInfo: ''
 })
 
-const squareUrl = ref('https://booop.net/wp-content/uploads/2022/07/booop_logo_250_250_black.png')
+const squareUrl = ref('src/assets/booop_logo_512_512_Black_white.png')
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
@@ -89,12 +89,11 @@ onMounted(() => {
     // console.log(response)
     if (response.status === 200) {
       // console.log(response.data)
-      // 将数据通过 emitter 传递出去
-      emitter.emit("response", response)
       card.isLoading = false
       card.cardInfo = arrayGroupBy(response.data.data, 'section_id')
       // 从card中提取出每个分区的具体大标题
       card.partitionInfo = unique(response.data.data, 'section_id')
+      // 将数据通过 emitter 传递出去
       emitter.emit("partitionInfo", card.partitionInfo)
     }
   })
@@ -110,14 +109,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 </script>
 
 <style scoped lang="scss">
-@mixin fontFamily {
-  font-family: "Bahnschrift", "PingFang SC", "苹方", "思源黑体", "思源宋体 CN";
-}
-
-* {
-  @include fontFamily;
-}
-
 .cardContainer {
   //margin-bottom: 40px;
 
@@ -194,7 +185,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     }
 
     .cardImages {
-      background: #FFFFFF;
+      //background: #FFFFFF;
       @media only screen and (max-width: 768px) {
         margin-bottom: 8px;
       }

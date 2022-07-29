@@ -13,7 +13,6 @@
 @mixin fontFamily {
   color: #AAAAAA;
   font-size: 14px;
-  font-family: "Bahnschrift", "PingFang SC", "苹方", "思源黑体", "思源宋体 CN";
 }
 
 .container {
