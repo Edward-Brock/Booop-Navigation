@@ -33,7 +33,7 @@ import HomeAside from "./HomeAside.vue";
 <style scoped lang="scss">
 
 .el-container {
-  height: 100vh;
+  //height: 100vh;
 }
 
 .el-header {
