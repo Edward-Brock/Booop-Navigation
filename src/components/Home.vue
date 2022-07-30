@@ -33,7 +33,6 @@ import HomeAside from "./HomeAside.vue";
 <style scoped lang="scss">
 
 .el-container {
-  background: #fafafa;
   height: 100vh;
 }
 
@@ -49,14 +48,16 @@ import HomeAside from "./HomeAside.vue";
 }
 
 .el-aside {
-  height: 100%;
-  width: 200px;
+  background: #fafafa;
+  height: 100vh;
+  width: 220px;
   padding-top: 52px;
   box-sizing: border-box;
   //border-right: solid 1px var(--el-menu-border-color);
 }
 
 .el-main {
+  background: #fafafa;
   height: 100vh;
   padding-top: 52px;
   box-sizing: border-box;
