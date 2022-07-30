@@ -58,8 +58,9 @@ import {onMounted, watch} from "vue";
   bottom: 0;
   background: #fafafa;
   width: 220px;
-  margin-top: 52px;
+  padding-top: 52px;
   box-sizing: border-box;
+  z-index: -1;
   //border-right: solid 1px var(--el-menu-border-color);
 }
 
@@ -71,7 +72,9 @@ import {onMounted, watch} from "vue";
   bottom: 0;
   overflow-y: scroll;
   background: #fafafa;
-  margin-top: 52px;
+  padding-top: 52px;
+  box-sizing: border-box;
+  z-index: -1;
   @media only screen and (max-width: 768px) {
     left: 0;
   }
