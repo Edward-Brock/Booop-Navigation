@@ -8,7 +8,7 @@
       </div>
       <div class="otherInfo">
         <div>{{ data.weather.weather }}</div>
-        <div>{{ data.weather.winddirection }}风</div>
+        <div>{{ data.weather.windDirection }}风</div>
       </div>
     </div>
   </div>
@@ -16,21 +16,41 @@
 
 <script setup>
 import {onMounted, reactive} from "vue";
-import axios from "axios";
+import AMapLoader from '@amap/amap-jsapi-loader';
 
-onMounted(
-    axios.get('https://restapi.amap.com/v3/weather/weatherInfo', {
-      params: {
-        key: import.meta.env.VITE_WEATHER_KEY,
-        city: '150702',
-        extensions: 'base',
-        output: 'json'
-      }
-    }).then(res => {
-      // console.log(res)
-      data.weather = res.data.lives[0]
+onMounted(() => {
+  getLocalWeather()
+})
+
+function getLocalWeather() {
+  AMapLoader.load({
+    key: import.meta.env.VITE_AMAP_WEB_JS_API_KEY, // 申请好的Web端开发者Key，首次调用 load 时必填
+    version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+    plugins: ['AMap.CitySearch'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+  }).then((AMap) => {
+    AMap.plugin('AMap.CitySearch', function () {
+      let citySearch = new AMap.CitySearch()
+      citySearch.getLocalCity(function (status, result) {
+        if (status === 'complete' && result.info === 'OK') {
+          // 查询成功，result即为当前所在城市信息
+          // console.log(result)
+          AMap.plugin('AMap.Weather', function () {
+            //创建天气查询实例
+            var weather = new AMap.Weather();
+            //执行实时天气信息查询
+            weather.getLive(result.adcode, function (err, result) {
+              // console.log(result);
+              data.weather = result
+            });
+          });
+        }
+      })
     })
-)
+  }).catch(e => {
+    console.log(e);
+  })
+}
+
 const data = reactive({
   weather: ""
 })
@@ -43,7 +63,7 @@ const data = reactive({
 }
 
 .container {
-  margin-top: 20px;
+  margin: 44px 0 0 0;
   width: 100%;
 }
 
