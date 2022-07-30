@@ -52,7 +52,7 @@ import white from '../assets/login_logo_396_118_white.png'
 let logoChangeImages = reactive([black, white])
 let logoImageSrc = ref(logoChangeImages[0])
 watch(isDark, (newValue, oldValue) => {
-  console.log(newValue)
+  // console.log(newValue)
   if (newValue) {
     logoImageSrc.value = logoChangeImages[1]
   } else {
