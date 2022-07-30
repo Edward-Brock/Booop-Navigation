@@ -15,7 +15,7 @@
           <HomeWeather/>
           <!--<HomeInput/>-->
           <HomeCard/>
-          <HomeFooter/>
+          <!--<HomeFooter/>-->
         </el-main>
       </el-container>
     </el-container>
@@ -59,7 +59,7 @@ import HomeAside from "./HomeAside.vue";
 .el-main {
   background: #fafafa;
   height: 100vh;
-  padding-top: 52px;
+  padding: 52px 20px;
   box-sizing: border-box;
 }
 
