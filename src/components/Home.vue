@@ -72,6 +72,9 @@ import {onMounted, watch} from "vue";
   overflow-y: scroll;
   background: #fafafa;
   margin-top: 52px;
+  @media only screen and (max-width: 768px) {
+    left: 0;
+  }
 }
 
 //.el-footer {
