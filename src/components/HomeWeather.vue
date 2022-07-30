@@ -63,7 +63,7 @@ const data = reactive({
 }
 
 .container {
-  margin: 44px 0 0 0;
+  margin-top: 25px;
   width: 100%;
 }
 

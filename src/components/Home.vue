@@ -26,21 +26,20 @@
 import HomeCard from './HomeCard.vue'
 import HomeHeader from './HomeHeader.vue'
 import HomeWeather from './HomeWeather.vue'
-import HomeFooter from './HomeFooter.vue';
-import HomeAside from "./HomeAside.vue";
+import HomeAside from './HomeAside.vue'
+import {onMounted, watch} from "vue";
 </script>
 
 <style scoped lang="scss">
 
 .el-container {
-  height: calc(100vh - 52px);
+  height: 100%;
 }
 
 .el-header {
   height: 52px;
-  width: 100vw;
+  width: 100%;
   position: fixed;
-  z-index: 999;
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   background: rgba(255, 255, 255, .25);
   backdrop-filter: saturate(180%) blur(20px);
@@ -49,27 +48,25 @@ import HomeAside from "./HomeAside.vue";
 
 .el-aside {
   background: #fafafa;
-  height: 100vh;
+  height: 100%;
   width: 220px;
-  padding-top: 52px;
+  margin-top: 52px;
   box-sizing: border-box;
   //border-right: solid 1px var(--el-menu-border-color);
 }
 
 .el-main {
   background: #fafafa;
-  height: 100vh;
-  padding: 52px 20px;
-  box-sizing: border-box;
+  margin-top: 52px;
 }
 
-.el-footer {
-  background: #FFFFFF;
-  //border-top: solid 1px var(--el-menu-border-color);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  background: rgba(255, 255, 255, .25);
-  backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: solid 1px var(--el-menu-border-color);
-}
+//.el-footer {
+//  background: #FFFFFF;
+//  //border-top: solid 1px var(--el-menu-border-color);
+//  -webkit-backdrop-filter: saturate(180%) blur(20px);
+//  background: rgba(255, 255, 255, .25);
+//  backdrop-filter: saturate(180%) blur(20px);
+//  border-bottom: solid 1px var(--el-menu-border-color);
+//}
 
 </style>

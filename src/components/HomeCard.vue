@@ -109,6 +109,10 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 </script>
 
 <style scoped lang="scss">
+.container {
+  margin-bottom: 52px;
+}
+
 .cardContainer {
   //margin-bottom: 40px;
 
