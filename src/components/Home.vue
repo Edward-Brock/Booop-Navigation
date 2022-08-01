@@ -58,7 +58,7 @@ import {onMounted, watch} from "vue";
   bottom: 0;
   background: #fafafa;
   width: 220px;
-  padding-top: 52px;
+  margin-top: 52px;
   box-sizing: border-box;
   z-index: -1;
   //border-right: solid 1px var(--el-menu-border-color);

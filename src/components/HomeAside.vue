@@ -6,6 +6,10 @@
         {{ cardGroup.section_title }}
       </div>
     </div>
+    <div class="side-footer">
+      <div class="copyright">© booop</div>
+      <div class="some-talking">Time and tide wait for no man.</div>
+    </div>
   </div>
 </template>
 
@@ -37,8 +41,12 @@ function goAnchor(selector) {
 
 <style scoped lang="scss">
 .container {
+  height: 100%;
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .cardTagContainer {
@@ -68,6 +76,18 @@ function goAnchor(selector) {
         margin-left: 8px;
       }
     }
+  }
+}
+
+.side-footer {
+  font-size: 14px;
+  color: rgba(200, 200, 200, .75);
+  margin-top: 40px;
+  padding: 15px 12px 15px 38px;
+  box-sizing: border-box;
+
+  .copyright {
+    margin-bottom: 8px;
   }
 }
 </style>
