@@ -3,16 +3,23 @@
     <el-skeleton v-show="card.isLoading" :rows="10" animated/>
     <span v-show="!card.isLoading">
       <!--卡片群主框架区-->
-        <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup">
+        <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
+             @mousemove="getSectionIndex(index)">
             <!--标题-->
             <h1 :id="'tag' + index">
                 {{ cardGroup[0].section_title }}
             </h1>
           <!--卡片主窗体-->
             <div class="cardGroup">
-                <div class="cardBg" v-for="(card,index) in cardGroup"
-                     :key="index"
-                     @click="urlHrefHandler(card.url_link)">
+              <TransitionGroup name="list">
+                <div class="cardBg" v-for="(card) in cardGroup"
+                     :key="card.id"
+                     @click="urlHrefHandler(card.url_link)"
+                     :draggable="true"
+                     @dragstart="dragstart(card)"
+                     @dragenter="dragenter(card,$event)"
+                     @dragend="dragend(card,$event)"
+                     @dragover="dragover($event)">
                     <div class="cardBgHref">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
@@ -25,6 +32,7 @@
                         </div>
                     </div>
                 </div>
+                </TransitionGroup>
             </div>
         </div>
     </span>
@@ -34,7 +42,7 @@
 
 <script setup>
 import 'element-plus/theme-chalk/display.css'
-import {onMounted, reactive, ref, toRefs} from "vue";
+import {onMounted, reactive, ref, toRefs, watch} from "vue";
 import axios from "axios";
 import emitter from "../untils/bus";
 
@@ -81,6 +89,44 @@ function unique(arr, val) {
   return arr.filter(item => !res.has(item[val]) && res.set(item[val], 1))
 }
 
+let oldData = ref(null) // 开始排序时按住的旧数据
+let newData = ref(null) // 拖拽过程的数据
+let sectionIndex = ref("") // 存储鼠标将要移动的分区
+
+// 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置
+function getSectionIndex(e) {
+  sectionIndex.value = e
+}
+
+function dragstart(value) {
+  oldData.value = value
+}
+
+// 记录移动过程中信息
+function dragenter(value, e) {
+  newData.value = value
+  e.preventDefault()
+}
+
+// 拖拽最终操作
+function dragend(value, e) {
+  if (oldData.value !== newData.value) {
+    let oldIndex = card.cardInfo[sectionIndex.value].indexOf(oldData.value)
+    let newIndex = card.cardInfo[sectionIndex.value].indexOf(newData.value)
+    let newItems = [...card.cardInfo[sectionIndex.value]]
+    // 删除老的节点
+    newItems.splice(oldIndex, 1)
+    // 在列表中目标位置增加新的节点
+    newItems.splice(newIndex, 0, oldData.value)
+    card.cardInfo[sectionIndex.value] = [...newItems]
+  }
+}
+
+// 拖动事件（主要是为了拖动时鼠标光标不变为禁止）
+function dragover(e) {
+  e.preventDefault()
+}
+
 onMounted(() => {
   axios({
     method: "GET",
@@ -105,6 +151,12 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     this.remove();
   }
 }
+
+watch(() => card.cardInfo[sectionIndex.value], (newValue, oldValue) => {
+  for (let i = 0; i <= newValue.length - 1; i++) {
+    // console.log(newValue[i].id)
+  }
+})
 
 </script>
 
@@ -237,6 +289,18 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       }
     }
   }
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
 .el-backtop {
