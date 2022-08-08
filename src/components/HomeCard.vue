@@ -28,7 +28,7 @@
                       <!--卡片文字部分-->
                         <div class="cardTextContent">
                             <div class="cardTitle"><span>{{ card.url_title }}</span></div>
-                            <div class="cardSubtitle">{{ card.url_remark }}</div>
+                            <div class="cardSubtitle" :title="card.url_remark">{{ card.url_remark }}</div>
                         </div>
                     </div>
                 </div>
