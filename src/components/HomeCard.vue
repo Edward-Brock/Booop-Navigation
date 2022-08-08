@@ -213,7 +213,7 @@ watch(() => card.cardInfo[sectionIndex.value], (newValue, oldValue) => {
     }
 
     @media only screen and (min-width: 1200px) {
-      margin: 1% 1.5% 1% 0;
+      margin: 1% 1.68% 1% 0;
       width: 18%;
     }
 
