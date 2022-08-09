@@ -11,8 +11,9 @@
             </h1>
           <!--卡片主窗体-->
             <div class="cardGroup">
-              <TransitionGroup name="list">
-                <div class="cardBg" v-for="(card) in cardGroup"
+                <!--单个卡片通过循环展示-->
+              <transition-group name="list">
+                <div class="cardBg" v-for="card in cardGroup"
                      :key="card.id"
                      @click="urlHrefHandler(card.url_link)"
                      :draggable="true"
@@ -32,7 +33,9 @@
                         </div>
                     </div>
                 </div>
-                </TransitionGroup>
+              </transition-group>
+              <!--针对每个专区添加一个快捷增加卡片功能-->
+              <HomeCardAdd :sectionIndex="sectionIndex"/>
             </div>
         </div>
     </span>
@@ -55,6 +58,7 @@ const card = reactive({
 })
 
 import cradLogo from '../assets/booop_logo_512_512_Black_white.png'
+import HomeCardAdd from "./HomeCardAdd.vue";
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
