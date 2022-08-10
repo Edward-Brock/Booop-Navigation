@@ -4,7 +4,7 @@
     <span v-show="!card.isLoading">
       <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
-             @mousemove="getSectionIndex(index)">
+             @mouseenter="getSectionIndex(cardGroup)">
             <!--标题-->
             <h1 :id="'tag' + index">
                 {{ cardGroup[0].section_title }}
@@ -45,9 +45,11 @@
 
 <script setup>
 import 'element-plus/theme-chalk/display.css'
-import {onMounted, reactive, ref, toRefs, watch} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import emitter from "../untils/bus";
+import cradLogo from '../assets/booop_logo_512_512_Black_white.png'
+import HomeCardAdd from "./HomeCardAdd.vue";
 
 const card = reactive({
   isLoading: true,
@@ -56,9 +58,6 @@ const card = reactive({
   // 每个分区的大标题信息
   partitionInfo: ''
 })
-
-import cradLogo from '../assets/booop_logo_512_512_Black_white.png'
-import HomeCardAdd from "./HomeCardAdd.vue";
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
@@ -76,6 +75,7 @@ const groupBy = (array, f) => {
     return groups[group];
   });
 };
+
 //将card中数组通过section_id进行分类
 const arrayGroupBy = (list, groupId) => {
   let sorted = groupBy(list, function (item) {
@@ -97,9 +97,10 @@ let oldData = ref(null) // 开始排序时按住的旧数据
 let newData = ref(null) // 拖拽过程的数据
 let sectionIndex = ref("") // 存储鼠标将要移动的分区
 
-// 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置
+// 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置,e[0].section_id获取当前专区内的第一个section_id
 function getSectionIndex(e) {
-  sectionIndex.value = e
+  // console.log(e[0].section_id)
+  sectionIndex.value = e[0].section_id
 }
 
 function dragstart(value) {
@@ -155,13 +156,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     this.remove();
   }
 }
-
-watch(() => card.cardInfo[sectionIndex.value], (newValue, oldValue) => {
-  for (let i = 0; i <= newValue.length - 1; i++) {
-    // console.log(newValue[i].id)
-  }
-})
-
 </script>
 
 <style scoped lang="scss">

@@ -46,6 +46,7 @@
 
 <script setup>
 import {reactive, ref, watch} from "vue";
+import axios from "axios";
 
 let open = ref(false)
 
@@ -64,8 +65,21 @@ const ruleFormRef = ref()
 function onSubmit() {
   ruleFormRef.value.validate((valid) => {
     if (valid) {
-      console.log(formLabelAlign)
+      // console.log(formLabelAlign)
+      axios({
+        method: "POST",
+        url: "https://api.booop.net/navigation/addItem",
+        data: {
+          ...formLabelAlign
+        }
+      }).then((response) => {
+        console.log(response.data)
+        if (response.data.status === 0) {
+          open.value = false
+        }
+      })
     } else {
+      console.log("数据提交失败")
     }
   })
 }
@@ -75,7 +89,7 @@ const labelPosition = ref('right')
 
 let props = defineProps(['sectionIndex'])
 watch(() => props.sectionIndex, (newValue) => {
-  formLabelAlign.section_id = (newValue + 1)
+  formLabelAlign.section_id = newValue
 })
 
 // 表单提交数据
