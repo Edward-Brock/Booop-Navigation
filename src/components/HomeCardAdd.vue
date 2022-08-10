@@ -2,29 +2,33 @@
   <div class="cardBg" @click="addCardLink()">
     <div class="addCard">
       <div class="addCardIcon">+</div>
-      <div class="addCardText hidden-xs-only">添加网址</div>
+      <div class="addCardText">添加网址</div>
     </div>
   </div>
   <Teleport to="body">
     <div v-if="open" class="modal">
       <div class="addCardWindow">
+        <h2 style="margin-bottom: 20px;">添加网址</h2>
         <el-form
             :label-position="labelPosition"
-            label-width="100px"
+            label-width="auto"
             :model="formLabelAlign"
             ref="ruleFormRef"
             :rules="rules"
         >
-          <el-form-item label="名称" prop="url_title">
+          <el-form-item label="收藏分区" prop="section_id">
+            <el-input-number disabled :min="0" v-model="formLabelAlign.section_id"/>
+          </el-form-item>
+          <el-form-item label="网站名称" prop="url_title">
             <el-input v-model="formLabelAlign.url_title"/>
           </el-form-item>
-          <el-form-item label="备注">
+          <el-form-item label="网站描述">
             <el-input v-model="formLabelAlign.url_remark"/>
           </el-form-item>
-          <el-form-item label="链接" prop="url_link">
+          <el-form-item label="网站网址" prop="url_link">
             <el-input v-model="formLabelAlign.url_link"/>
           </el-form-item>
-          <el-form-item label="图片链接">
+          <el-form-item label="网站Logo">
             <el-input v-model="formLabelAlign.url_pic"/>
           </el-form-item>
           <el-form-item label="验证码">
@@ -41,15 +45,12 @@
 </template>
 
 <script setup>
-import {reactive, ref} from "vue";
-
-defineProps(['sectionIndex'])
+import {reactive, ref, watch} from "vue";
 
 let open = ref(false)
 
 // 添加卡片切换
 function addCardLink() {
-  // console.log(props.sectionIndex)
   if (!open.value) {
     open.value = true
   } else {
@@ -70,10 +71,16 @@ function onSubmit() {
 }
 
 // 表单标题位置（左、右、上）
-const labelPosition = ref('top')
+const labelPosition = ref('right')
+
+let props = defineProps(['sectionIndex'])
+watch(() => props.sectionIndex, (newValue) => {
+  formLabelAlign.section_id = (newValue + 1)
+})
 
 // 表单提交数据
 const formLabelAlign = reactive({
+  section_id: '',
   url_title: '',
   url_remark: '',
   url_link: '',
@@ -83,6 +90,9 @@ const formLabelAlign = reactive({
 
 // 表单验证规则
 const rules = reactive({
+  section_id: [
+    {required: true, message: '请输入需要存储的收藏分区', trigger: 'blur'},
+  ],
   url_title: [
     {required: true, message: '请输入需要加入的网站名称', trigger: 'blur'},
     {min: 2, message: '最小需要输入2个字符', trigger: 'blur'},
@@ -112,7 +122,12 @@ const rules = reactive({
   background: #FFF;
   overflow: hidden;
   cursor: pointer;
-  border: rgba(50, 50, 50, .1) 2px solid;
+  border: rgba(50, 50, 50, .1) 2px dashed;
+  color: rgba(0, 0, 0, .6);
+
+  &:hover {
+    color: rgba(0, 0, 0, 1);
+  }
 
   @media only screen and (min-width: 768px) {
     width: 30%;
@@ -150,6 +165,13 @@ const rules = reactive({
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+    }
 
     .addCardIcon {
       color: rgba(50, 50, 50, .2);
@@ -161,13 +183,19 @@ const rules = reactive({
       border-radius: 50px;
       text-align: center;
       margin: 0 auto;
+
+      @media only screen and (max-width: 768px) {
+        margin-bottom: 8px;
+      }
     }
 
     .addCardText {
-      margin-left: 10px;
       font-size: 16px;
       font-weight: bold;
-      color: rgba(0, 0, 0, .6);
+
+      @media only screen and (min-width: 768px) {
+        margin-left: 8px;
+      }
     }
   }
 }
@@ -177,18 +205,22 @@ const rules = reactive({
   z-index: 99;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .addCardWindow {
-  background: rgba(255, 255, 255, .85);
+  background: rgba(255, 255, 255, .9);
   border: 2px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
   border-radius: 8px;
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
