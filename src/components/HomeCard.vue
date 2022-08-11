@@ -4,7 +4,7 @@
     <span v-show="!card.isLoading">
       <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
-             @mouseenter="getSectionIndex(cardGroup,index)">
+             @mouseenter="getSectionSortIndex(index)" @click="getSectionTrueIndex(cardGroup)">
             <!--标题-->
             <h1 :id="'tag' + index">
                 {{ cardGroup[0].section_title }}
@@ -12,7 +12,6 @@
           <!--卡片主窗体-->
             <div class="cardGroup">
                 <!--单个卡片通过循环展示-->
-              <transition-group name="list">
                 <div class="cardBg" v-for="card in cardGroup"
                      :key="card.id"
                      @click="urlHrefHandler(card.url_link)"
@@ -33,9 +32,8 @@
                         </div>
                     </div>
                 </div>
-              </transition-group>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd :sectionIndex="sectionTrueIndex"/>
+              <HomeCardAdd :sectionIndex="sectionIndex.trueIndex"/>
             </div>
         </div>
     </span>
@@ -95,16 +93,23 @@ function unique(arr, val) {
 
 let oldData = ref(null) // 开始排序时按住的旧数据
 let newData = ref(null) // 拖拽过程的数据
-let sectionSortIndex = ref("") // 存储鼠标将要移动的排序后分区
-let sectionTrueIndex = ref("") // 存储鼠标将要移动的真实原分区id
+
+let sectionIndex = reactive({
+  // 存储鼠标将要移动的排序后分区
+  sortIndex: "",
+  // 存储鼠标将要移动的真实原分区id
+  trueIndex: ""
+})
 
 // 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置,e[0].section_id获取当前专区内的第一个section_id
-function getSectionIndex(cardGroup, index) {
-  // console.log(e[0].section_id)
+function getSectionSortIndex(index) {
   // 记录通过section表中的sort_id排序后的id，用于页面分区内的手动拖动排序
-  sectionSortIndex.value = index
+  sectionIndex.sortIndex = index
+}
+
+function getSectionTrueIndex(cardGroup) {
   // 记录通过section表中的id排序后的真实原id，用于快捷添加卡片功能时获取真实原id
-  sectionTrueIndex.value = cardGroup[0].section_id
+  sectionIndex.trueIndex = cardGroup[0].section_id
 }
 
 function dragstart(value) {
@@ -120,14 +125,14 @@ function dragenter(value, e) {
 // 拖拽最终操作
 function dragend(value, e) {
   if (oldData.value !== newData.value) {
-    let oldIndex = card.cardInfo[sectionSortIndex.value].indexOf(oldData.value)
-    let newIndex = card.cardInfo[sectionSortIndex.value].indexOf(newData.value)
-    let newItems = [...card.cardInfo[sectionSortIndex.value]]
+    let oldIndex = card.cardInfo[sectionIndex.sortIndex].indexOf(oldData.value)
+    let newIndex = card.cardInfo[sectionIndex.sortIndex].indexOf(newData.value)
+    let newItems = [...card.cardInfo[sectionIndex.sortIndex]]
     // 删除老的节点
     newItems.splice(oldIndex, 1)
     // 在列表中目标位置增加新的节点
     newItems.splice(newIndex, 0, oldData.value)
-    card.cardInfo[sectionSortIndex.value] = [...newItems]
+    card.cardInfo[sectionIndex.sortIndex] = [...newItems]
   }
 }
 
@@ -291,18 +296,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       }
     }
   }
-}
-
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
 }
 
 .el-backtop {

@@ -1,7 +1,7 @@
 <template>
   <div class="cardBg" @click="addCardLink()">
     <div class="addCard">
-      <div class="addCardIcon">+</div>
+      <div class="addCardIcon">＋</div>
       <div class="addCardText">添加网址</div>
     </div>
   </div>
@@ -11,28 +11,28 @@
         <h2 style="margin-bottom: 20px;">添加网址</h2>
         <el-form
             :label-position="labelPosition"
-            label-width="auto"
+            label-width="100px"
             :model="formLabelAlign"
             ref="ruleFormRef"
             :rules="rules"
         >
           <el-form-item label="收藏分区" prop="section_id">
-            <el-input-number disabled :min="0" v-model="formLabelAlign.section_id"/>
+            <el-input v-model.number="formLabelAlign.section_id"/>
           </el-form-item>
           <el-form-item label="网站名称" prop="url_title">
-            <el-input v-model="formLabelAlign.url_title"/>
+            <el-input v-model.trim="formLabelAlign.url_title"/>
           </el-form-item>
           <el-form-item label="网站描述">
-            <el-input v-model="formLabelAlign.url_remark"/>
+            <el-input v-model.trim="formLabelAlign.url_remark"/>
           </el-form-item>
           <el-form-item label="网站网址" prop="url_link">
-            <el-input v-model="formLabelAlign.url_link"/>
+            <el-input v-model.trim="formLabelAlign.url_link"/>
           </el-form-item>
           <el-form-item label="网站Logo">
-            <el-input v-model="formLabelAlign.url_pic"/>
+            <el-input v-model.trim="formLabelAlign.url_pic"/>
           </el-form-item>
           <el-form-item label="验证码">
-            <el-input v-model="formLabelAlign.verification_code"/>
+            <el-input v-model.trim="formLabelAlign.verification_code"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">添加</el-button>
@@ -189,14 +189,8 @@ const rules = reactive({
 
     .addCardIcon {
       color: rgba(50, 50, 50, .2);
-      font-size: 40px;
+      font-size: 24px;
       font-weight: bold;
-      background: rgba(50, 50, 50, .1);
-      width: 45px;
-      height: 45px;
-      border-radius: 50px;
-      text-align: center;
-      margin: 0 auto;
 
       @media only screen and (max-width: 768px) {
         margin-bottom: 8px;
