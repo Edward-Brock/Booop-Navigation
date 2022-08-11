@@ -4,7 +4,7 @@
     <span v-show="!card.isLoading">
       <!--卡片群主框架区-->
         <div class="cardContainer" v-for="(cardGroup,index) in card.cardInfo" :key="cardGroup"
-             @mouseenter="getSectionIndex(cardGroup)">
+             @mouseenter="getSectionIndex(cardGroup,index)">
             <!--标题-->
             <h1 :id="'tag' + index">
                 {{ cardGroup[0].section_title }}
@@ -35,7 +35,7 @@
                 </div>
               </transition-group>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd :sectionIndex="sectionIndex"/>
+              <HomeCardAdd :sectionIndex="sectionTrueIndex"/>
             </div>
         </div>
     </span>
@@ -95,12 +95,16 @@ function unique(arr, val) {
 
 let oldData = ref(null) // 开始排序时按住的旧数据
 let newData = ref(null) // 拖拽过程的数据
-let sectionIndex = ref("") // 存储鼠标将要移动的分区
+let sectionSortIndex = ref("") // 存储鼠标将要移动的排序后分区
+let sectionTrueIndex = ref("") // 存储鼠标将要移动的真实原分区id
 
 // 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置,e[0].section_id获取当前专区内的第一个section_id
-function getSectionIndex(e) {
+function getSectionIndex(cardGroup, index) {
   // console.log(e[0].section_id)
-  sectionIndex.value = e[0].section_id
+  // 记录通过section表中的sort_id排序后的id，用于页面分区内的手动拖动排序
+  sectionSortIndex.value = index
+  // 记录通过section表中的id排序后的真实原id，用于快捷添加卡片功能时获取真实原id
+  sectionTrueIndex.value = cardGroup[0].section_id
 }
 
 function dragstart(value) {
@@ -116,14 +120,14 @@ function dragenter(value, e) {
 // 拖拽最终操作
 function dragend(value, e) {
   if (oldData.value !== newData.value) {
-    let oldIndex = card.cardInfo[sectionIndex.value].indexOf(oldData.value)
-    let newIndex = card.cardInfo[sectionIndex.value].indexOf(newData.value)
-    let newItems = [...card.cardInfo[sectionIndex.value]]
+    let oldIndex = card.cardInfo[sectionSortIndex.value].indexOf(oldData.value)
+    let newIndex = card.cardInfo[sectionSortIndex.value].indexOf(newData.value)
+    let newItems = [...card.cardInfo[sectionSortIndex.value]]
     // 删除老的节点
     newItems.splice(oldIndex, 1)
     // 在列表中目标位置增加新的节点
     newItems.splice(newIndex, 0, oldData.value)
-    card.cardInfo[sectionIndex.value] = [...newItems]
+    card.cardInfo[sectionSortIndex.value] = [...newItems]
   }
 }
 
