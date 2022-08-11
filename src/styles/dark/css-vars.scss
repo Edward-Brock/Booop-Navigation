@@ -65,4 +65,27 @@ html.dark {
   .el-avatar--circle {
     background: none !important;
   }
+
+  // 快捷添加卡片遮罩
+  .modal {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  // 快捷添加卡片窗体
+  .addCardWindow {
+    background: rgba(20, 20, 20, .75);
+    border: 2px solid rgba(0, 0, 0, .75);
+    box-shadow: none;
+  }
+
+  // 快捷添加卡片按钮文字及图标
+  .addCard {
+    .addCardText {
+      @include fontDarkModeColor(.5)
+    }
+
+    .addCardIcon {
+      @include fontDarkModeColor(.5);
+    }
+  }
 }

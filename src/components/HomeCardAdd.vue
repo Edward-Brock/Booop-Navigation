@@ -11,7 +11,7 @@
         <h2 style="margin-bottom: 20px;">添加网址</h2>
         <el-form
             :label-position="labelPosition"
-            label-width="100px"
+            label-width="80px"
             :model="formLabelAlign"
             ref="ruleFormRef"
             :rules="rules"
@@ -31,8 +31,8 @@
           <el-form-item label="网站Logo">
             <el-input v-model.trim="formLabelAlign.url_pic"/>
           </el-form-item>
-          <el-form-item label="验证码">
-            <el-input v-model.trim="formLabelAlign.verification_code"/>
+          <el-form-item label="验证码" prop="verification_code">
+            <el-input type="password" show-password v-model.trim="formLabelAlign.verification_code"/>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">添加</el-button>
@@ -113,6 +113,9 @@ const rules = reactive({
   ],
   url_link: [
     {required: true, message: '请输入需要加入的网站地址', trigger: 'blur'}
+  ],
+  verification_code: [
+    {required: true, message: '请输入验证码', trigger: 'blur'}
   ]
 })
 </script>
@@ -198,6 +201,7 @@ const rules = reactive({
     }
 
     .addCardText {
+      color: rgba(0, 0, 0, .6);
       font-size: 16px;
       font-weight: bold;
 
@@ -230,5 +234,9 @@ const rules = reactive({
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.el-input {
+  width: 200px;
 }
 </style>
