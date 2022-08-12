@@ -8,7 +8,10 @@
   <Teleport to="body">
     <div v-if="open" class="modal">
       <div class="addCardWindow">
-        <h2 style="margin-bottom: 20px;">添加网址</h2>
+        <h2>添加网址</h2>
+        <el-avatar class="avatarContainer" :size="120"
+                   :src="formLabelAlign.url_pic ? formLabelAlign.url_pic : cardDefaultLogo">预览网站Logo
+        </el-avatar>
         <el-form
             :label-position="labelPosition"
             label-width="80px"
@@ -17,7 +20,7 @@
             :rules="rules"
         >
           <el-form-item label="收藏分区" prop="section_id">
-            <el-input v-model.number="formLabelAlign.section_id"/>
+            <el-input-number disabled v-model.number="formLabelAlign.section_id"/>
           </el-form-item>
           <el-form-item label="网站名称" prop="url_title">
             <el-input v-model.trim="formLabelAlign.url_title"/>
@@ -47,6 +50,7 @@
 <script setup>
 import {reactive, ref, watch} from "vue";
 import axios from "axios";
+import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png';
 
 let open = ref(false)
 
@@ -76,6 +80,7 @@ function onSubmit() {
         console.log(response.data)
         if (response.data.status === 0) {
           open.value = false
+          window.location.reload()
         }
       })
     } else {
@@ -218,7 +223,8 @@ const rules = reactive({
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(4px);
+  backdrop-filter: saturate(180%) blur(4px);
+  -webkit-backdrop-filter: saturate(180%) blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,6 +240,12 @@ const rules = reactive({
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.avatarContainer {
+  margin: 20px auto;
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(200, 200, 200, .25);
 }
 
 .el-input {

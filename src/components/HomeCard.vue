@@ -23,7 +23,7 @@
                     <div class="cardBgHref">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
-                                       :src="card.url_pic ? card.url_pic : cradLogo"/>
+                                       :src="card.url_pic ? card.url_pic : cardDefaultLogo"/>
                         </div>
                       <!--卡片文字部分-->
                         <div class="cardTextContent">
@@ -46,7 +46,7 @@ import 'element-plus/theme-chalk/display.css'
 import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import emitter from "../untils/bus";
-import cradLogo from '../assets/booop_logo_512_512_Black_white.png'
+import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png'
 import HomeCardAdd from "./HomeCardAdd.vue";
 
 const card = reactive({
