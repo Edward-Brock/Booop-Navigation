@@ -28,7 +28,7 @@ html.dark {
   // 卡片主背景
   .cardBg {
     @include cardBackgroundDarkModeColor(.25);
-    border: rgba(50, 50, 50, .4) 2px solid !important;
+    border: rgba(50, 50, 50, .4) 2px dashed !important;
 
     &:hover {
       @include cardBackgroundDarkModeColor(.5);
