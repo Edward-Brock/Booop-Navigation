@@ -12,15 +12,15 @@
           <!--卡片主窗体-->
             <div class="cardGroup">
                 <!--单个卡片通过循环展示-->
-                <div class="cardBg" v-for="card in cardGroup"
+                <div class="cardBg" v-for="(card,index) in cardGroup"
                      :key="card.id"
-                     @click="urlHrefHandler(card.url_link)"
                      :draggable="true"
                      @dragstart="dragstart(card)"
                      @dragenter="dragenter(card,$event)"
                      @dragend="dragend(card,$event)"
-                     @dragover="dragover($event)">
-                    <div class="cardBgHref">
+                     @dragover="dragover($event)"
+                     @mousemove="showEdit">
+                    <div class="cardBgHref" @click="urlHrefHandler(card.url_link)">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
                                        :src="card.url_pic ? card.url_pic : cardDefaultLogo"/>
@@ -31,9 +31,14 @@
                             <div class="cardSubtitle" :title="card.url_remark">{{ card.url_remark }}</div>
                         </div>
                     </div>
+                  <div class="editBtn">
+                    <div class="editItemDisplay">👀</div>
+                    <div class="editItemBtn" @click="editCard(index)">Edit</div>
+                  </div>
                 </div>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd :sectionIndex="sectionIndex.trueIndex"/>
+              <HomeCardAdd ref="cardAddRef" :sectionIndex="sectionIndex.trueIndex"
+                           :editCardInfo="editCardInfo"/>
             </div>
         </div>
     </span>
@@ -51,6 +56,7 @@ import HomeCardAdd from "./HomeCardAdd.vue";
 
 const card = reactive({
   isLoading: true,
+  isEdit: false,
   // 每个分区内的具体详细信息
   cardInfo: '',
   // 每个分区的大标题信息
@@ -59,6 +65,13 @@ const card = reactive({
 
 function urlHrefHandler(url) {
   window.open(url, '_blank')
+}
+
+let editCardInfo = ref(null)
+
+function editCard(index) {
+  // console.log(card.cardInfo[sectionIndex.sortIndex][index])
+  editCardInfo.value = card.cardInfo[sectionIndex.sortIndex][index]
 }
 
 //将card中数组通过section_id进行分类
@@ -188,21 +201,17 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
-    @media only screen and (min-width: 768px) {
-      & div:last-child {
-        margin-right: auto;
-      }
-    }
   }
 
   .cardBg {
-    min-height: 80px;
+    height: 100%;
     border-radius: 8px;
     background: #FFF;
     overflow: hidden;
     cursor: pointer;
     border: rgba(50, 50, 50, .1) 2px solid;
+    display: flex;
+    flex-direction: column;
 
     @media only screen and (min-width: 768px) {
       width: 30%;
@@ -231,10 +240,9 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
     .cardBgHref {
       color: rgba(0, 0, 0, .6);
-      height: 100%;
       display: flex;
       align-items: center;
-      padding: 20px;
+      padding: 10px 20px;
       box-sizing: border-box;
 
       &:hover {
@@ -293,6 +301,33 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       text-overflow: ellipsis;
       @media only screen and (max-width: 768px) {
         text-align: center;
+      }
+    }
+
+    .editBtn {
+      color: rgba(0, 0, 0, .5);
+      font-size: 12px;
+      padding: 6px 20px;
+      //border-top: rgba(50, 50, 50, .1) 1px solid;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid;
+      border-image: linear-gradient(90deg, rgba(50, 50, 50, .1) 0%, rgba(255, 255, 255, 0) 100%) 2 2 2 2;
+      cursor: auto;
+
+      .editItemDisplay {
+        padding: 0 10px;
+        box-sizing: border-box;
+      }
+
+      .editItemBtn {
+        @extend .editItemDisplay;
+        cursor: pointer;
+
+        &:hover {
+          color: rgba(0, 0, 0, 1);
+        }
       }
     }
   }

@@ -77,7 +77,7 @@ function onSubmit() {
           ...formLabelAlign
         }
       }).then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         if (response.data.status === 0) {
           open.value = false
           window.location.reload()
@@ -92,13 +92,14 @@ function onSubmit() {
 // 表单标题位置（左、右、上）
 const labelPosition = ref('right')
 
-let props = defineProps(['sectionIndex'])
-watch(() => props.sectionIndex, (newValue) => {
+let props = defineProps(['sectionIndex', 'editCardInfo'])
+watch([() => props.sectionIndex, () => props.editCardInfo], (newValue) => {
+  // console.log(newValue)
   formLabelAlign.section_id = newValue
 })
 
 // 表单提交数据
-const formLabelAlign = reactive({
+let formLabelAlign = reactive({
   section_id: '',
   url_title: '',
   url_remark: '',
