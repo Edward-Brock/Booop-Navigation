@@ -20,7 +20,7 @@
                      @dragend="dragend(card,$event)"
                      @dragover="dragover($event)"
                      @mousemove="showEdit">
-                    <div class="cardBgHref" @click="urlHrefHandler(card.url_link)">
+                    <div class="cardBgHref" @click="urlHrefHandler(card.url_link,card.id,card.visit_num)">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
                                        :src="card.url_pic ? card.url_pic : cardDefaultLogo"/>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                   <div class="editBtn">
-                    <div class="editItemDisplay">👀</div>
+                    <div class="editItemDisplay">👀 {{ card.visit_num }}</div>
                     <div class="editItemBtn" @click="editCard(index)">Edit</div>
                   </div>
                 </div>
@@ -63,8 +63,22 @@ const card = reactive({
   partitionInfo: ''
 })
 
-function urlHrefHandler(url) {
+function urlHrefHandler(url, id, visit_num) {
   window.open(url, '_blank')
+  axios({
+    method: "POST",
+    url: "https://api.booop.net/navigation/visitCount",
+    data: {
+      id: id,
+      visit_num: visit_num + 1
+    }
+  }).then((response) => {
+    // console.log(response.data)
+    if (response.data.status === 0) {
+      open.value = false
+      window.location.reload()
+    }
+  })
 }
 
 let editCardInfo = ref(null)
