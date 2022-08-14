@@ -325,17 +325,11 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 2px solid;
+      border-top: 1px solid;
       border-image: linear-gradient(90deg, rgba(50, 50, 50, .1) 0%, rgba(255, 255, 255, 0) 100%) 2 2 2 2;
       cursor: auto;
 
-      .editItemDisplay {
-        padding: 0 10px;
-        box-sizing: border-box;
-      }
-
       .editItemBtn {
-        @extend .editItemDisplay;
         cursor: pointer;
 
         &:hover {
