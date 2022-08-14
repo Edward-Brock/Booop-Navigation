@@ -92,20 +92,20 @@ function onSubmit() {
 // 表单标题位置（左、右、上）
 const labelPosition = ref('right')
 
-let props = defineProps(['sectionIndex', 'editCardInfo'])
-watch([() => props.sectionIndex, () => props.editCardInfo], (newValue) => {
+let props = defineProps(['sectionIndex'])
+watch(() => props.sectionIndex, (newValue) => {
   // console.log(newValue)
   formLabelAlign.section_id = newValue
 })
 
 // 表单提交数据
 let formLabelAlign = reactive({
-  section_id: '',
+  section_id: null,
   url_title: '',
   url_remark: '',
   url_link: '',
   url_pic: '',
-  verification_code: ''
+  verification_code: null
 })
 
 // 表单验证规则
@@ -149,7 +149,9 @@ const rules = reactive({
   color: rgba(0, 0, 0, .6);
 
   &:hover {
-    color: rgba(0, 0, 0, 1);
+    .addCardText {
+      color: rgba(0, 0, 0, 1) !important;
+    }
   }
 
   @media only screen and (min-width: 768px) {

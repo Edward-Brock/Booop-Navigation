@@ -34,6 +34,10 @@ html.dark {
       @include cardBackgroundDarkModeColor(.5);
       border: rgba(50, 50, 50, 1) 2px solid !important;
       box-shadow: none !important;
+
+      .addCardText {
+        @include fontDarkModeColor(.95);
+      }
     }
 
     &:last-child {
@@ -51,6 +55,18 @@ html.dark {
 
     &:hover {
       @include fontDarkModeColor(.95);
+    }
+  }
+
+  .editBtn {
+    @include fontDarkModeColor(.5);
+    border-top: 2px solid !important;
+    border-image: linear-gradient(-90deg, rgba(50, 50, 50, 0) 0%, rgba(255, 255, 255, .1) 100%) 2 2 2 2 !important;
+
+    .editItemBtn {
+      &:hover {
+        @include fontDarkModeColor(.95);
+      }
     }
   }
 
@@ -88,8 +104,9 @@ html.dark {
 
   // 快捷添加卡片按钮文字及图标
   .addCard {
+
     .addCardText {
-      @include fontDarkModeColor(.5)
+      @include fontDarkModeColor(.5);
     }
 
     .addCardIcon {

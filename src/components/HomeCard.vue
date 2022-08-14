@@ -32,13 +32,12 @@
                         </div>
                     </div>
                   <div class="editBtn">
-                    <div class="editItemDisplay">👀 {{ card.visit_num }}</div>
+                    <div class="editItemDisplay">🔥 {{ card.visit_num }}</div>
                     <div class="editItemBtn" @click="editCard(index)">Edit</div>
                   </div>
                 </div>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd ref="cardAddRef" :sectionIndex="sectionIndex.trueIndex"
-                           :editCardInfo="editCardInfo"/>
+              <HomeCardAdd ref="cardAddRef" :sectionIndex="sectionIndex.trueIndex"/>
             </div>
         </div>
     </span>
@@ -123,9 +122,9 @@ let newData = ref(null) // 拖拽过程的数据
 
 let sectionIndex = reactive({
   // 存储鼠标将要移动的排序后分区
-  sortIndex: "",
+  sortIndex: null,
   // 存储鼠标将要移动的真实原分区id
-  trueIndex: ""
+  trueIndex: null
 })
 
 // 获取当前鼠标所在分类的id，用于后续手动调整分区内书签位置,e[0].section_id获取当前专区内的第一个section_id
@@ -227,6 +226,11 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     display: flex;
     flex-direction: column;
 
+    &:hover {
+      border: rgba(50, 50, 50, .15) 2px solid;
+      box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
+    }
+
     @media only screen and (min-width: 768px) {
       width: 30%;
       margin: 2% 2.5% 2% 0;
@@ -245,11 +249,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     @media only screen and (min-width: 1200px) {
       margin: 1% 1.68% 1% 0;
       width: 18%;
-    }
-
-    &:hover {
-      border: rgba(50, 50, 50, .15) 2px solid;
-      box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
     }
 
     .cardBgHref {
@@ -326,7 +325,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid;
+      border-top: 2px solid;
       border-image: linear-gradient(90deg, rgba(50, 50, 50, .1) 0%, rgba(255, 255, 255, 0) 100%) 2 2 2 2;
       cursor: auto;
 
