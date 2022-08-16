@@ -19,7 +19,7 @@
                      @dragenter="dragenter(card,$event)"
                      @dragend="dragend(card,$event)"
                      @dragover="dragover($event)"
-                     @mousemove="showEdit">
+                     @mouseenter="showEdit">
                     <div class="cardBgHref" @click="urlHrefHandler(card.url_link,card.id,card.visit_num)">
                         <div class="cardImages">
                             <el-avatar style="background: #FFFFFF" shape="circle"
@@ -33,7 +33,7 @@
                     </div>
                   <div class="editBtn">
                     <div class="editItemDisplay">🔥 {{ card.visit_num }}</div>
-                    <div class="editItemBtn" @click="editCard(index)">Edit</div>
+                    <div class="editItemBtn" v-show="card.isEdit" @click="editCard(index)">Edit</div>
                   </div>
                 </div>
               <!--针对每个专区添加一个快捷增加卡片功能-->
@@ -47,7 +47,7 @@
 
 <script setup>
 import 'element-plus/theme-chalk/display.css'
-import {onMounted, reactive, ref} from "vue";
+import {inject, onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import emitter from "../untils/bus";
 import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png'
@@ -62,6 +62,16 @@ const card = reactive({
   partitionInfo: ''
 })
 
+function showEdit() {
+  // console.log("Active...")
+  // console.log(card.isEdit)
+  card.isEdit = !card.isEdit
+  // console.log(card.isEdit)
+}
+
+// 通过 inject 注入接收
+const refresh = inject('refresh')
+
 function urlHrefHandler(url, id, visit_num) {
   window.open(url, '_blank')
   axios({
@@ -75,7 +85,8 @@ function urlHrefHandler(url, id, visit_num) {
     // console.log(response.data)
     if (response.data.status === 0) {
       open.value = false
-      window.location.reload()
+      // 调用 App 内定义的全局刷新方法
+      refresh()
     }
   })
 }
