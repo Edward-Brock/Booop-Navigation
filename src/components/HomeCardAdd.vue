@@ -38,7 +38,7 @@
             <el-input type="password" show-password v-model.trim="formLabelAlign.verification_code"/>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">添加</el-button>
+            <el-button type="primary" :disabled="addButtonDisabled" @click="onSubmit">添加</el-button>
             <el-button @click="open = false">取消</el-button>
           </el-form-item>
         </el-form>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import {reactive, ref, watch} from "vue";
+import {inject, reactive, ref, watch} from "vue";
 import axios from "axios";
 import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png';
 
@@ -63,8 +63,14 @@ function addCardLink() {
   }
 }
 
+// 通过 inject 注入接收
+const refresh = inject('refresh')
+
 // 提交卡片信息
 const ruleFormRef = ref()
+
+// 卡片添加按钮禁用
+let addButtonDisabled = ref(true)
 
 function onSubmit() {
   ruleFormRef.value.validate((valid) => {
@@ -80,7 +86,15 @@ function onSubmit() {
         // console.log(response.data)
         if (response.data.status === 0) {
           open.value = false
-          window.location.reload()
+          ElMessage({
+            message: response.data.message,
+            type: 'success'
+          })
+          // 调用 App 内定义的全局刷新方法
+          refresh()
+        } else {
+          open.value = false
+          ElMessage.error(response.data.message)
         }
       })
     } else {

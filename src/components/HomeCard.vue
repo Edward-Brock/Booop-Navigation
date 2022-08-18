@@ -1,4 +1,7 @@
 <template>
+  <!--卡片删除子组件-->
+  <CardDialog ref="CardDialogRef"/>
+  <!--总窗体容器-->
   <div class="container">
     <el-skeleton v-show="card.isLoading" :rows="10" animated/>
     <span v-show="!card.isLoading">
@@ -31,13 +34,16 @@
                             <div class="cardSubtitle" :title="card.url_remark">{{ card.url_remark }}</div>
                         </div>
                     </div>
-                  <div class="editBtn">
+                  <div class="cardRemarkInfo">
                     <div class="editItemDisplay">🔥 {{ card.visit_num }}</div>
-                    <div class="editItemBtn" v-show="card.isEdit" @click="editCard(index)">Edit</div>
+                    <div class="cardRemarkInfoEditButton">
+                    <div class="editItemBtn" @click="editCard(index)">编辑</div>
+                    <div class="editItemBtn" @click="deleteCard(index)">删除</div>
+                    </div>
                   </div>
                 </div>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd ref="cardAddRef" :sectionIndex="sectionIndex.trueIndex"/>
+              <HomeCardAdd :sectionIndex="sectionIndex.trueIndex"/>
             </div>
         </div>
     </span>
@@ -52,22 +58,15 @@ import axios from "axios";
 import emitter from "../untils/bus";
 import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png'
 import HomeCardAdd from "./HomeCardAdd.vue";
+import CardDialog from "./CardDialog.vue";
 
 const card = reactive({
   isLoading: true,
-  isEdit: false,
   // 每个分区内的具体详细信息
   cardInfo: '',
   // 每个分区的大标题信息
   partitionInfo: ''
 })
-
-function showEdit() {
-  // console.log("Active...")
-  // console.log(card.isEdit)
-  card.isEdit = !card.isEdit
-  // console.log(card.isEdit)
-}
 
 // 通过 inject 注入接收
 const refresh = inject('refresh')
@@ -82,20 +81,26 @@ function urlHrefHandler(url, id, visit_num) {
       visit_num: visit_num + 1
     }
   }).then((response) => {
-    // console.log(response.data)
-    if (response.data.status === 0) {
-      open.value = false
-      // 调用 App 内定义的全局刷新方法
-      refresh()
-    }
-  })
+        // console.log(response.data)
+        // 调用 App 内定义的全局刷新方法
+        refresh()
+      }
+  )
 }
 
-let editCardInfo = ref(null)
-
+// 编辑卡片方法
 function editCard(index) {
   // console.log(card.cardInfo[sectionIndex.sortIndex][index])
-  editCardInfo.value = card.cardInfo[sectionIndex.sortIndex][index]
+}
+
+// 删除卡片弹窗信息
+let CardDialogRef = ref(null)
+
+// 删除卡片方法，向CardDialog传递：当前删除卡片真实ID、删除卡片遮罩是否启用
+function deleteCard(index) {
+  const deleteCardId = card.cardInfo[sectionIndex.sortIndex][index]
+  CardDialogRef.value.showCardTrueIndexFunction(deleteCardId)
+  CardDialogRef.value.showDeleteCardDialogFunction(false)
 }
 
 //将card中数组通过section_id进行分类
@@ -328,7 +333,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       }
     }
 
-    .editBtn {
+    .cardRemarkInfo {
       color: rgba(0, 0, 0, .5);
       font-size: 12px;
       padding: 6px 20px;
@@ -340,11 +345,30 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       border-image: linear-gradient(90deg, rgba(50, 50, 50, .1) 0%, rgba(255, 255, 255, 0) 100%) 2 2 2 2;
       cursor: auto;
 
+      &:hover {
+        .editItemBtn {
+          display: block;
+        }
+      }
+
+      .cardRemarkInfoEditButton {
+        display: flex;
+      }
+
       .editItemBtn {
+        display: none;
         cursor: pointer;
+        padding: 0 4px;
+        box-sizing: border-box;
 
         &:hover {
           color: rgba(0, 0, 0, 1);
+        }
+
+        &:last-child {
+          &:hover {
+            color: rgba(255, 0, 0, .95);
+          }
         }
       }
     }
