@@ -1,6 +1,8 @@
 <template>
   <!--卡片删除子组件-->
   <CardDialog ref="CardDialogRef"/>
+  <!--快捷添加卡片子组件-->
+  <HomeCardAdd ref="HomeCardAddRef" :sectionIndex="sectionIndex.trueIndex"/>
   <!--总窗体容器-->
   <div class="container">
     <el-skeleton v-show="card.isLoading" :rows="10" animated/>
@@ -43,7 +45,12 @@
                   </div>
                 </div>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <HomeCardAdd :sectionIndex="sectionIndex.trueIndex"/>
+              <div class="cardBg" @click="addCard()">
+                <div class="addCard">
+                  <div class="addCardIcon">＋</div>
+                  <div class="addCardText">添加网址</div>
+                </div>
+              </div>
             </div>
         </div>
     </span>
@@ -86,6 +93,14 @@ function urlHrefHandler(url, id, visit_num) {
         refresh()
       }
   )
+}
+
+// 添加卡片弹窗信息
+let HomeCardAddRef = ref()
+
+// 添加卡片方法
+function addCard() {
+  HomeCardAddRef.value.showAddCardDialogFunction(false)
 }
 
 // 编辑卡片方法
@@ -227,13 +242,32 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
   }
 
   .cardGroup {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    align-items: flex-start;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 6fr);
+      grid-gap: 20px 20px;
+    }
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(4, 3fr);
+      grid-gap: 20px 20px;
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: repeat(4, 3fr);
+      grid-gap: 20px 20px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(6, 2fr);
+      grid-gap: 20px 20px;
+      align-self: start;
+    }
   }
 
   .cardBg {
-    height: 100%;
     border-radius: 8px;
     background: #FFF;
     overflow: hidden;
@@ -245,26 +279,10 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     &:hover {
       border: rgba(50, 50, 50, .15) 2px solid;
       box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
-    }
 
-    @media only screen and (min-width: 768px) {
-      width: 30%;
-      margin: 2% 2.5% 2% 0;
-    }
-
-    @media only screen and (max-width: 768px) {
-      width: 45%;
-      margin: 2% 3% 2% 0;
-    }
-
-    @media only screen and (min-width: 992px) {
-      width: 22%;
-      margin: 1% 2.4% 1% 0;
-    }
-
-    @media only screen and (min-width: 1200px) {
-      margin: 1% 1.68% 1% 0;
-      width: 18%;
+      .addCardText {
+        color: rgba(0, 0, 0.95) !important;
+      }
     }
 
     .cardBgHref {
@@ -369,6 +387,40 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
           &:hover {
             color: rgba(255, 0, 0, .95);
           }
+        }
+      }
+    }
+
+    .addCard {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+
+      @media only screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .addCardIcon {
+        color: rgba(50, 50, 50, .2);
+        font-size: 24px;
+        font-weight: bold;
+
+        @media only screen and (max-width: 768px) {
+          margin-bottom: 8px;
+        }
+      }
+
+      .addCardText {
+        color: rgba(0, 0, 0, .6);
+        font-size: 16px;
+        font-weight: bold;
+
+        @media only screen and (min-width: 768px) {
+          margin-left: 8px;
         }
       }
     }

@@ -1,12 +1,6 @@
 <template>
-  <div class="cardBg" @click="addCardLink()">
-    <div class="addCard">
-      <div class="addCardIcon">＋</div>
-      <div class="addCardText">添加网址</div>
-    </div>
-  </div>
   <Teleport to="body">
-    <div v-if="open" class="modal">
+    <div v-if="addCardDialogOpen" class="modal">
       <div class="addCardWindow">
         <h2>添加网址</h2>
         <el-avatar class="avatarContainer" :size="120"
@@ -38,8 +32,8 @@
             <el-input type="password" show-password v-model.trim="formLabelAlign.verification_code"/>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" :disabled="addButtonDisabled" @click="onSubmit">添加</el-button>
-            <el-button @click="open = false">取消</el-button>
+            <el-button type="primary" @click="onSubmit">添加</el-button>
+            <el-button @click="addCardDialogOpen = false">取消</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -52,14 +46,22 @@ import {inject, reactive, ref, watch} from "vue";
 import axios from "axios";
 import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png';
 
-let open = ref(false)
+// 添加卡片遮罩
+let addCardDialogOpen = ref(false)
+
+// 添加卡片遮罩方法
+function showAddCardDialogFunction(event) {
+  addCardDialogOpen.value = !event
+}
+
+defineExpose({showAddCardDialogFunction})
 
 // 添加卡片切换
 function addCardLink() {
-  if (!open.value) {
-    open.value = true
+  if (!addCardDialogOpen.value) {
+    addCardDialogOpen.value = true
   } else {
-    open.value = false
+    addCardDialogOpen.value = false
   }
 }
 
@@ -68,9 +70,6 @@ const refresh = inject('refresh')
 
 // 提交卡片信息
 const ruleFormRef = ref()
-
-// 卡片添加按钮禁用
-let addButtonDisabled = ref(true)
 
 function onSubmit() {
   ruleFormRef.value.validate((valid) => {
@@ -85,7 +84,7 @@ function onSubmit() {
       }).then((response) => {
         // console.log(response.data)
         if (response.data.status === 0) {
-          open.value = false
+          addCardDialogOpen.value = false
           ElMessage({
             message: response.data.message,
             type: 'success'
@@ -93,7 +92,7 @@ function onSubmit() {
           // 调用 App 内定义的全局刷新方法
           refresh()
         } else {
-          open.value = false
+          addCardDialogOpen.value = false
           ElMessage.error(response.data.message)
         }
       })
@@ -141,99 +140,6 @@ const rules = reactive({
 </script>
 
 <style scoped lang="scss">
-.cardGroup {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  @media only screen and (min-width: 768px) {
-    & div:last-child {
-      margin-right: auto;
-    }
-  }
-}
-
-.cardBg {
-  min-height: 80px;
-  border-radius: 8px;
-  background: #FFF;
-  overflow: hidden;
-  cursor: pointer;
-  border: rgba(50, 50, 50, .1) 2px dashed;
-  color: rgba(0, 0, 0, .6);
-
-  &:hover {
-    .addCardText {
-      color: rgba(0, 0, 0, 1) !important;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    width: 30%;
-    margin: 2% 2.5% 2% 0;
-  }
-
-  @media only screen and (max-width: 768px) {
-    width: 45%;
-    margin: 2% 3% 2% 0;
-  }
-
-  @media only screen and (min-width: 992px) {
-    width: 22%;
-    margin: 1% 2.4% 1% 0;
-  }
-
-  @media only screen and (min-width: 1200px) {
-    margin: 1% 1.68% 1% 0;
-    width: 18%;
-  }
-
-  &:hover {
-    border: rgba(50, 50, 50, .15) 2px solid;
-    box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
-  }
-
-  &:last-child {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .addCard {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
-
-    @media only screen and (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .addCardIcon {
-      color: rgba(50, 50, 50, .2);
-      font-size: 24px;
-      font-weight: bold;
-
-      @media only screen and (max-width: 768px) {
-        margin-bottom: 8px;
-      }
-    }
-
-    .addCardText {
-      color: rgba(0, 0, 0, .6);
-      font-size: 16px;
-      font-weight: bold;
-
-      @media only screen and (min-width: 768px) {
-        margin-left: 8px;
-      }
-    }
-  }
-}
-
 .modal {
   position: fixed;
   z-index: 99;
