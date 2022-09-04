@@ -1,5 +1,6 @@
 <template>
-  <Home v-if="isRefresh"/>
+  <router-view></router-view>
+  <!--  <Home v-if="isRefresh"/>-->
 </template>
 
 <script setup>

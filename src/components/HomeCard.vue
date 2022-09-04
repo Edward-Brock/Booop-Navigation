@@ -27,7 +27,7 @@
                      @mouseenter="showEdit">
                     <div class="cardBgHref" @click="urlHrefHandler(card.url_link,card.id,card.visit_num)">
                         <div class="cardImages">
-                            <el-avatar style="background: #FFFFFF" shape="circle"
+                            <el-avatar style="background: #FFFFFF" shape="circle" fit="scale-down"
                                        :src="card.url_pic ? card.url_pic : cardDefaultLogo"/>
                         </div>
                       <!--卡片文字部分-->
@@ -294,6 +294,10 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
       &:hover {
         color: rgba(0, 0, 0, 1);
+
+        .cardTitle:after {
+          content: " >";
+        }
       }
 
       @media only screen and (max-width: 768px) {

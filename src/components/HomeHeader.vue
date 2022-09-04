@@ -20,6 +20,9 @@
     <div class="flex-grow"/>
     <el-menu-item index="0">首页</el-menu-item>
     <el-menu-item index="1">博客</el-menu-item>
+    <el-menu-item index="2">
+      <router-link to="/ColorTime">彩色时间</router-link>
+    </el-menu-item>
   </el-menu>
 </template>
 <script setup>
