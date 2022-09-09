@@ -1,8 +1,12 @@
 <template>
   <!--卡片删除子组件-->
   <CardDialog ref="CardDialogRef"/>
+  <!--卡片编辑子组件-->
+  <UpdateCard ref="UpdateCardRef"/>
+
   <!--快捷添加卡片子组件-->
   <HomeCardAdd ref="HomeCardAddRef" :sectionIndex="sectionIndex.trueIndex"/>
+
   <!--总窗体容器-->
   <div class="container">
     <el-skeleton v-show="card.isLoading" :rows="10" animated/>
@@ -17,7 +21,6 @@
           <!--卡片主窗体-->
             <div class="cardGroup">
                 <!--单个卡片通过循环展示-->
-              <TransitionGroup name="list">
                 <div class="cardBg" v-for="(card,index) in cardGroup"
                      :key="card.id"
                      :draggable="true"
@@ -45,7 +48,6 @@
                     </div>
                   </div>
                 </div>
-                </TransitionGroup>
               <!--针对每个专区添加一个快捷增加卡片功能-->
               <div class="cardBg" @click="addCard()">
                 <div class="addCard">
@@ -68,6 +70,7 @@ import emitter from "../untils/bus";
 import cardDefaultLogo from '../assets/booop_logo_512_512_Black_white.png'
 import HomeCardAdd from "./HomeCardAdd.vue";
 import CardDialog from "./CardDialog.vue";
+import UpdateCard from "./UpdateCard.vue";
 
 const card = reactive({
   isLoading: true,
@@ -105,14 +108,15 @@ function addCard() {
   HomeCardAddRef.value.showAddCardDialogFunction(false)
 }
 
+// 更新卡片信息
+let UpdateCardRef = ref()
+
 // 编辑卡片方法
 function editCard(index) {
   // console.log(card.cardInfo[sectionIndex.sortIndex][index].id)
-  const editCardId = card.cardInfo[sectionIndex.sortIndex][index]
-  CardDialogRef.value.showCardTrueIndexFunction(editCardId)
-  // CardDialogRef.value.showDeleteCardDialogFunction(false)
-  CardDialogRef.value.selectDisplayStatusIndex(1)
-  HomeCardAddRef.value.showAddCardDialogFunction(false)
+  const editCardId = card.cardInfo[sectionIndex.sortIndex][index].id
+  UpdateCardRef.value.showAddCardDialogFunction(false)
+  UpdateCardRef.value.showUpdateCardIndex(editCardId)
 }
 
 // 删除卡片弹窗信息
