@@ -1,23 +1,28 @@
 <template>
   <Teleport to="body">
     <div v-if="cardInfo.showDeleteCardDialog" class="modal">
-      <div class="addCardWindow">
-        <h2>删除 {{ cardInfo.showCardTrueIndex.url_title }} ？</h2>
-        <el-form
-            :label-position="labelPosition"
-            label-width="100px"
-            :model="formLabelAlign"
-            ref="ruleFormRef"
-            :rules="rules"
-        >
-          <el-form-item label="删除验证码" prop="verification_code">
-            <el-input type="password" v-model="formLabelAlign.verification_code"/>
-          </el-form-item>
-          <el-form-item>
-            <el-button @click="cardInfo.showDeleteCardDialog = false">取消</el-button>
-            <el-button type="danger" :disabled="deleteButtonDisabled" @click="onSubmit">删除</el-button>
-          </el-form-item>
-        </el-form>
+      <div v-if="cardInfo.displayStatusIndex === 0">
+        <div class="addCardWindow">
+          <h2>删除 {{ cardInfo.showCardTrueIndex.url_title }} ？</h2>
+          <el-form
+              :label-position="labelPosition"
+              label-width="100px"
+              :model="formLabelAlign"
+              ref="ruleFormRef"
+              :rules="rules"
+          >
+            <el-form-item label="删除验证码" prop="verification_code">
+              <el-input type="password" v-model="formLabelAlign.verification_code"/>
+            </el-form-item>
+            <el-form-item>
+              <el-button @click="cardInfo.showDeleteCardDialog = false">取消</el-button>
+              <el-button type="danger" :disabled="deleteButtonDisabled" @click="onSubmit">删除</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+      <div v-if="cardInfo.displayStatusIndex === 1">
+        <HomeCardAdd/>
       </div>
     </div>
   </Teleport>
@@ -26,6 +31,7 @@
 <script setup>
 import {inject, reactive, ref, watch} from "vue";
 import axios from "axios";
+import HomeCardAdd from './HomeCardAdd.vue';
 
 // 表单标题位置（左、右、上）
 const labelPosition = ref('right')
@@ -95,7 +101,8 @@ function onSubmit() {
 // 删除卡片遮罩是否启用
 let cardInfo = reactive({
   showCardTrueIndex: null,
-  showDeleteCardDialog: false
+  showDeleteCardDialog: false,
+  displayStatusIndex: ""
 })
 
 // 当前删除卡片真实ID
@@ -109,7 +116,11 @@ function showDeleteCardDialogFunction(event) {
   cardInfo.showDeleteCardDialog = !event
 }
 
-defineExpose({showCardTrueIndexFunction, showDeleteCardDialogFunction})
+function selectDisplayStatusIndex(index) {
+  cardInfo.displayStatusIndex = index
+}
+
+defineExpose({showCardTrueIndexFunction, showDeleteCardDialogFunction, selectDisplayStatusIndex})
 </script>
 
 <style scoped lang="scss">

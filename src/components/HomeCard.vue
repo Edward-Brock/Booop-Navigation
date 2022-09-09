@@ -17,6 +17,7 @@
           <!--卡片主窗体-->
             <div class="cardGroup">
                 <!--单个卡片通过循环展示-->
+              <TransitionGroup name="list">
                 <div class="cardBg" v-for="(card,index) in cardGroup"
                      :key="card.id"
                      :draggable="true"
@@ -44,6 +45,7 @@
                     </div>
                   </div>
                 </div>
+                </TransitionGroup>
               <!--针对每个专区添加一个快捷增加卡片功能-->
               <div class="cardBg" @click="addCard()">
                 <div class="addCard">
@@ -105,7 +107,12 @@ function addCard() {
 
 // 编辑卡片方法
 function editCard(index) {
-  // console.log(card.cardInfo[sectionIndex.sortIndex][index])
+  // console.log(card.cardInfo[sectionIndex.sortIndex][index].id)
+  const editCardId = card.cardInfo[sectionIndex.sortIndex][index]
+  CardDialogRef.value.showCardTrueIndexFunction(editCardId)
+  // CardDialogRef.value.showDeleteCardDialogFunction(false)
+  CardDialogRef.value.selectDisplayStatusIndex(1)
+  HomeCardAddRef.value.showAddCardDialogFunction(false)
 }
 
 // 删除卡片弹窗信息
@@ -116,6 +123,7 @@ function deleteCard(index) {
   const deleteCardId = card.cardInfo[sectionIndex.sortIndex][index]
   CardDialogRef.value.showCardTrueIndexFunction(deleteCardId)
   CardDialogRef.value.showDeleteCardDialogFunction(false)
+  CardDialogRef.value.selectDisplayStatusIndex(0)
 }
 
 //将card中数组通过section_id进行分类
@@ -265,6 +273,17 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       grid-gap: 20px 20px;
       align-self: start;
     }
+  }
+
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease;
+  }
+
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
 
   .cardBg {
