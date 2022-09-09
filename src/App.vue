@@ -1,10 +1,8 @@
 <template>
-  <router-view></router-view>
-  <!--  <Home v-if="isRefresh"/>-->
+  <router-view v-if="isRefresh"></router-view>
 </template>
 
 <script setup>
-import Home from "./components/Home.vue";
 import {nextTick, provide, ref} from "vue";
 
 // 定义全局刷新
