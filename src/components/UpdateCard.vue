@@ -14,7 +14,7 @@
             :rules="rules"
         >
           <el-form-item label="收藏分区" prop="section_id">
-            <el-input-number min="1" v-model.number="formLabelAlign.section_id"/>
+            <el-input-number :min="1" v-model.number="formLabelAlign.section_id"/>
           </el-form-item>
           <el-form-item label="网站名称" prop="url_title">
             <el-input v-model.trim="formLabelAlign.url_title"/>
@@ -68,7 +68,7 @@ function showUpdateCardIndex(index) {
   }).then((response) => {
     // console.log(...response.data.data)
     updateCardInfoTemp.value = response.data.data[0]
-    console.log(updateCardInfoTemp)
+    // console.log(updateCardInfoTemp)
     formLabelAlign.id = index
     formLabelAlign.section_id = updateCardInfoTemp.value.section_id
     formLabelAlign.url_title = updateCardInfoTemp.value.url_title
