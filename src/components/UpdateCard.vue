@@ -14,7 +14,7 @@
             :rules="rules"
         >
           <el-form-item label="收藏分区" prop="section_id">
-            <el-input-number v-model.number="formLabelAlign.section_id"/>
+            <el-input-number min="1" v-model.number="formLabelAlign.section_id"/>
           </el-form-item>
           <el-form-item label="网站名称" prop="url_title">
             <el-input v-model.trim="formLabelAlign.url_title"/>
