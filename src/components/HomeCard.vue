@@ -237,7 +237,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
 <style scoped lang="scss">
 .container {
-  //margin-bottom: 52px;
+  margin-bottom: 52px;
 }
 
 .cardContainer {
