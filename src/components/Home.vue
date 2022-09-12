@@ -12,10 +12,12 @@
       <el-container>
         <!--主要区域容器-->
         <el-main>
-          <HomeWeather/>
-          <!--<HomeInput/>-->
-          <HomeCard/>
-          <!--<HomeFooter/>-->
+          <el-scrollbar>
+            <HomeWeather/>
+            <!--<HomeInput/>-->
+            <HomeCard/>
+            <!--<HomeFooter/>-->
+          </el-scrollbar>
         </el-main>
       </el-container>
     </el-container>
@@ -27,7 +29,6 @@ import HomeCard from './HomeCard.vue'
 import HomeHeader from './HomeHeader.vue'
 import HomeWeather from './HomeWeather.vue'
 import HomeAside from './HomeAside.vue'
-import {onMounted, watch} from "vue";
 </script>
 
 <style scoped lang="scss">
@@ -37,17 +38,19 @@ import {onMounted, watch} from "vue";
 }
 
 .el-header {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  position: sticky;
+  //display: block;
+  //left: 0;
+  //top: 0;
+  //bottom: 0;
   height: 52px;
   width: 100%;
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   background: rgba(255, 255, 255, .25);
-  backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(50%) blur(4px);
   border-bottom: solid 1px var(--el-menu-border-color);
+  background-image: radial-gradient(transparent 1px, #FFF 1px);
+  background-size: 4px 4px;
 }
 
 .el-aside {
@@ -70,14 +73,19 @@ import {onMounted, watch} from "vue";
   right: 0;
   top: 0;
   bottom: 0;
-  overflow-y: scroll;
   background: #fafafa;
-  padding-top: 52px;
   box-sizing: border-box;
   z-index: -1;
+  --el-main-padding: 0;
+
   @media only screen and (max-width: 768px) {
     left: 0;
   }
+}
+
+.el-scrollbar {
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 //.el-footer {

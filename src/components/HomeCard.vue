@@ -59,7 +59,6 @@
         </div>
     </span>
   </div>
-  <el-backtop/>
 </template>
 
 <script setup>
@@ -238,7 +237,7 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
 <style scoped lang="scss">
 .container {
-  margin-bottom: 52px;
+  //margin-bottom: 52px;
 }
 
 .cardContainer {
@@ -301,10 +300,19 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 
     &:hover {
       border: rgba(50, 50, 50, .15) 2px solid;
-      box-shadow: 0 20px 20px rgba(100, 100, 100, .1);
+      box-shadow: 0 20px 20px rgba(100, 100, 100, .15);
 
       .addCardText {
         color: rgba(0, 0, 0.95) !important;
+      }
+    }
+
+    &:last-child {
+      border: rgba(50, 50, 50, .15) 2px dashed;
+
+      &:hover {
+        border: rgba(100, 100, 100, .15) 2px solid;
+        box-shadow: none;
       }
     }
 

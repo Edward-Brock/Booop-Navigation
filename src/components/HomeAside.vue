@@ -1,16 +1,18 @@
 <template>
-  <div class="container">
-    <div class="cardTagContainer">
-      <div class="cardTag" v-for="(cardGroup,index) in card.partitionInfo" :key="cardGroup"
-           @click="goAnchor('#tag' + index)">
-        {{ cardGroup.section_title }}
+  <el-scrollbar>
+    <div class="container">
+      <div class="cardTagContainer">
+        <div class="cardTag" v-for="(cardGroup,index) in card.partitionInfo" :key="cardGroup"
+             @click="goAnchor('#tag' + index)">
+          {{ cardGroup.section_title }}
+        </div>
+      </div>
+      <div class="side-footer">
+        <div class="copyright">© booop</div>
+        <div class="some-talking">Time and tide wait for no man.</div>
       </div>
     </div>
-    <div class="side-footer">
-      <div class="copyright">© booop</div>
-      <div class="some-talking">Time and tide wait for no man.</div>
-    </div>
-  </div>
+  </el-scrollbar>
 </template>
 
 <script setup>
@@ -42,7 +44,6 @@ function goAnchor(selector) {
 <style scoped lang="scss">
 .container {
   height: 100%;
-  padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -60,18 +61,18 @@ function goAnchor(selector) {
     font-size: 16px;
     font-weight: bold;
     margin: 8px;
-    padding: 15px 12px 15px 30px;
+    padding: 15px 15px 15px 35px;
     box-sizing: border-box;
     border-radius: 50px;
     cursor: pointer;
-    background: #fafafa;
+    //background: #fafafa;
 
     &:hover {
       color: rgba(0, 0, 0, 1);
       background: rgba(200, 200, 200, .2);
 
       &:after {
-        content: "➔";
+        content: ">";
         font-size: 14px;
         margin-left: 8px;
       }
@@ -83,7 +84,7 @@ function goAnchor(selector) {
   font-size: 14px;
   color: rgba(200, 200, 200, .75);
   margin-top: 40px;
-  padding: 15px 12px 15px 38px;
+  padding: 15px;
   box-sizing: border-box;
 
   .copyright {
