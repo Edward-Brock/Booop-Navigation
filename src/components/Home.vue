@@ -38,7 +38,7 @@ import HomeAside from './HomeAside.vue'
 }
 
 .el-header {
-  position: sticky;
+  position: fixed;
   height: 52px;
   width: 100%;
   //background: rgba(255, 255, 255, .25);
