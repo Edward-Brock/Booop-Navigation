@@ -21,6 +21,7 @@
           <!--卡片主窗体-->
             <div class="cardGroup">
                 <!--单个卡片通过循环展示-->
+              <TransitionGroup name="list" mode="out-in">
                 <div class="cardBg" v-for="(card,index) in cardGroup"
                      :key="card.id"
                      :draggable="true"
@@ -48,6 +49,7 @@
                     </div>
                   </div>
                 </div>
+                </TransitionGroup>
               <!--针对每个专区添加一个快捷增加卡片功能-->
               <div class="cardBg" @click="addCard()">
                 <div class="addCard">
@@ -236,6 +238,24 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
 </script>
 
 <style scoped lang="scss">
+.list-move, /* 对移动中的元素应用的过渡 */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* 确保将离开的元素从布局流中删除
+  以便能够正确地计算移动的动画。 */
+.list-leave-active {
+  position: absolute;
+}
+
 .container {
   margin-bottom: 52px;
 }
@@ -278,17 +298,6 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     }
   }
 
-  .list-enter-active,
-  .list-leave-active {
-    transition: all 0.5s ease;
-  }
-
-  .list-enter-from,
-  .list-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-
   .cardBg {
     border-radius: 8px;
     background: #FFF;
@@ -299,8 +308,8 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     flex-direction: column;
 
     &:hover {
-      border: rgba(50, 50, 50, .15) 2px solid;
-      box-shadow: 0 20px 20px rgba(100, 100, 100, .15);
+      border: rgba(50, 50, 50, .2) 2px solid;
+      box-shadow: 0 -3px 0 rgba(50, 50, 50, .15);
 
       .addCardText {
         color: rgba(0, 0, 0.95) !important;
@@ -311,8 +320,8 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
       border: rgba(50, 50, 50, .15) 2px dashed;
 
       &:hover {
-        border: rgba(100, 100, 100, .15) 2px solid;
-        box-shadow: none;
+        border: rgba(50, 50, 50, .2) 2px solid;
+        box-shadow: 0 -3px 0 rgba(50, 50, 50, .15);
       }
     }
 

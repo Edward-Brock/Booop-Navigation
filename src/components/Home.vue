@@ -39,15 +39,11 @@ import HomeAside from './HomeAside.vue'
 
 .el-header {
   position: sticky;
-  //display: block;
-  //left: 0;
-  //top: 0;
-  //bottom: 0;
   height: 52px;
   width: 100%;
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  background: rgba(255, 255, 255, .25);
+  //background: rgba(255, 255, 255, .25);
   backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
   border-bottom: solid 1px var(--el-menu-border-color);
   background-image: radial-gradient(transparent 1px, #FFF 1px);
   background-size: 4px 4px;
@@ -61,7 +57,7 @@ import HomeAside from './HomeAside.vue'
   bottom: 0;
   background: #fafafa;
   width: 220px;
-  margin-top: 52px;
+  //margin-top: 52px;
   box-sizing: border-box;
   z-index: -1;
   //border-right: solid 1px var(--el-menu-border-color);

@@ -44,6 +44,7 @@ function goAnchor(selector) {
 <style scoped lang="scss">
 .container {
   height: 100%;
+  padding-top: 52px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -61,7 +62,7 @@ function goAnchor(selector) {
     font-size: 16px;
     font-weight: bold;
     margin: 8px;
-    padding: 15px 15px 15px 35px;
+    padding: 15px 15px 15px 26px;
     box-sizing: border-box;
     border-radius: 50px;
     cursor: pointer;

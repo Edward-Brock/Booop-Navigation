@@ -11,13 +11,19 @@
 }
 
 html.dark {
-  .el-container, .el-aside, .el-main {
+  .el-aside, .el-main {
     background: rgb(18, 18, 18) !important;
   }
 
   // 顶端栏深色模式背景颜色覆盖
   .el-header {
-    @include backgroundDarkModeColor(.72);
+    //@include backgroundDarkModeColor(.72);
+    //background: rgba(0, 0, 0, .15);
+    backdrop-filter: saturate(50%) blur(4px);
+    -webkit-backdrop-filter: saturate(50%) blur(4px);
+    border-bottom: solid 1px var(--el-menu-border-color);
+    background-image: radial-gradient(transparent 1px, rgba(0, 0, 0, .95) 1px);
+    background-size: 4px 4px;
   }
 
   // 分类标题
@@ -66,7 +72,7 @@ html.dark {
   .cardRemarkInfo {
     @include fontDarkModeColor(.5);
     border-top: 1px solid !important;
-    //border-image: linear-gradient(-90deg, rgba(50, 50, 50, 0) 0%, rgba(255, 255, 255, .1) 100%) 2 2 2 2 !important;
+    border-image: linear-gradient(-90deg, rgba(50, 50, 50, 0) 0%, rgba(255, 255, 255, .1) 100%) 2 2 2 2 !important;
 
     .editItemBtn {
       &:hover {
@@ -77,15 +83,14 @@ html.dark {
 
   // 卡片副标题
   .cardSubtitle {
-    @include fontDarkModeColor(.5);
+    @include fontDarkModeColor(.25);
   }
 
   .cardTag {
     @include fontDarkModeColor(.5);
 
     &:hover {
-      @include fontDarkModeColor(1);
-      background: rgba(50, 50, 50, .5) !important;
+      @include fontDarkModeColor(.95);
     }
   }
 
@@ -117,4 +122,5 @@ html.dark {
       @include fontDarkModeColor(.5);
     }
   }
+
 }
