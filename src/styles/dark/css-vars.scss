@@ -29,6 +29,10 @@ html.dark {
   // 分类标题
   h1 {
     @include fontDarkModeColor(.8);
+
+    sup {
+      @include fontDarkModeColor(.5);
+    }
   }
 
   // 侧边栏脚注
