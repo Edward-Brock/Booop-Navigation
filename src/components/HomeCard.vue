@@ -17,6 +17,7 @@
             <!--标题-->
             <h1 :id="'tag' + index">
                 {{ cardGroup[0].section_title }}
+              <sup>{{ cardGroup.length }}个</sup>
             </h1>
           <!--卡片主窗体-->
             <div class="cardGroup">
@@ -271,6 +272,11 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
     font-weight: bold;
     // 解决快捷区点击跳转后 h1 标签直接置顶
     padding-top: 64px;
+
+    sup {
+      font-size: 14px;
+      color: rgba(50, 50, 50, .75);
+    }
   }
 
   .cardGroup {
