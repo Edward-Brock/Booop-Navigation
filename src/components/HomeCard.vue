@@ -114,10 +114,11 @@ let UpdateCardRef = ref()
 
 // 编辑卡片方法
 function editCard(index) {
-  // console.log(card.cardInfo[sectionIndex.sortIndex][index].id)
+  // console.log(card.cardInfo[sectionIndex.sortIndex][index])
+  const editCardInfo = card.cardInfo[sectionIndex.sortIndex][index]
   const editCardId = card.cardInfo[sectionIndex.sortIndex][index].id
   UpdateCardRef.value.showAddCardDialogFunction(false)
-  UpdateCardRef.value.showUpdateCardIndex(editCardId)
+  UpdateCardRef.value.showUpdateCardIndex(editCardId, editCardInfo)
 }
 
 // 删除卡片弹窗信息

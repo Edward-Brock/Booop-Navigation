@@ -55,7 +55,7 @@ import HomeAside from './HomeAside.vue'
   left: 0;
   top: 0;
   bottom: 0;
-  background: #fafafa;
+  background: rgba(250, 250, 250, .75);
   width: 220px;
   //margin-top: 52px;
   box-sizing: border-box;
@@ -69,7 +69,7 @@ import HomeAside from './HomeAside.vue'
   right: 0;
   top: 0;
   bottom: 0;
-  background: #fafafa;
+  background: rgba(250, 250, 250, .75);
   box-sizing: border-box;
   z-index: -1;
   --el-main-padding: 0;

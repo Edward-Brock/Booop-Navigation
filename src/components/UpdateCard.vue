@@ -54,28 +54,15 @@ function showAddCardDialogFunction(event) {
   addCardDialogOpen.value = !event
 }
 
-// 编辑卡片缓存信息
-let updateCardInfoTemp = ref()
-
 // 获取要编辑的卡片信息
-function showUpdateCardIndex(index) {
-  axios({
-    method: "POST",
-    url: "https://api.booop.net/navigation/selectItem",
-    data: {
-      id: index
-    }
-  }).then((response) => {
-    // console.log(...response.data.data)
-    updateCardInfoTemp.value = response.data.data[0]
-    // console.log(updateCardInfoTemp)
-    formLabelAlign.id = index
-    formLabelAlign.section_id = updateCardInfoTemp.value.section_id
-    formLabelAlign.url_title = updateCardInfoTemp.value.url_title
-    formLabelAlign.url_remark = updateCardInfoTemp.value.url_remark
-    formLabelAlign.url_link = updateCardInfoTemp.value.url_link
-    formLabelAlign.url_pic = updateCardInfoTemp.value.url_pic
-  })
+function showUpdateCardIndex(index, info) {
+  // console.log("-->", info)
+  formLabelAlign.id = index
+  formLabelAlign.section_id = info.section_id
+  formLabelAlign.url_title = info.url_title
+  formLabelAlign.url_remark = info.url_remark
+  formLabelAlign.url_link = info.url_link
+  formLabelAlign.url_pic = info.url_pic
 }
 
 defineExpose({showAddCardDialogFunction, showUpdateCardIndex})
