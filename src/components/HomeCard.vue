@@ -24,6 +24,7 @@
                 <!--单个卡片通过循环展示-->
               <TransitionGroup name="list" mode="out-in">
                 <div class="cardBg" v-for="(card,index) in cardGroup"
+                     v-tilt="{reverse: true}"
                      :key="card.id"
                      :draggable="true"
                      @dragstart="dragstart(card)"
@@ -52,7 +53,7 @@
                 </div>
                 </TransitionGroup>
               <!--针对每个专区添加一个快捷增加卡片功能-->
-              <div class="cardBg" @click="addCard()">
+              <div class="cardBg" v-tilt="{reverse: true}" @click="addCard()">
                 <div class="addCard">
                   <div class="addCardText">添加网址</div>
                 </div>

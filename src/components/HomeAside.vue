@@ -2,7 +2,8 @@
   <el-scrollbar>
     <div class="container">
       <div class="cardTagContainer">
-        <div class="cardTag" v-for="(cardGroup,index) in card.partitionInfo" :key="cardGroup"
+        <div class="cardTag" v-tilt="{reverse: true, axis: 'x'}" v-for="(cardGroup,index) in card.partitionInfo"
+             :key="cardGroup"
              @click="goAnchor('#tag' + index)">
           {{ cardGroup.section_title }}
         </div>
