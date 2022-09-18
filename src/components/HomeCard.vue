@@ -54,7 +54,6 @@
               <!--针对每个专区添加一个快捷增加卡片功能-->
               <div class="cardBg" @click="addCard()">
                 <div class="addCard">
-                  <div class="addCardIcon">＋</div>
                   <div class="addCardText">添加网址</div>
                 </div>
               </div>
@@ -455,23 +454,27 @@ for (var i = oDiv.length - 1; i >= 0; i--) {
         flex-direction: column;
       }
 
-      .addCardIcon {
-        color: rgba(50, 50, 50, .2);
-        font-size: 24px;
-        font-weight: bold;
-
-        @media only screen and (max-width: 768px) {
-          margin-bottom: 8px;
-        }
-      }
-
       .addCardText {
         color: rgba(0, 0, 0, .6);
         font-size: 16px;
         font-weight: bold;
+        display: flex;
+        align-items: center;
 
-        @media only screen and (min-width: 768px) {
-          margin-left: 8px;
+        @media only screen and (max-width: 768px) {
+          flex-direction: column;
+        }
+
+        &:before {
+          content: "＋";
+          color: rgba(50, 50, 50, .2);
+          font-size: 24px;
+          font-weight: bold;
+          margin-right: 4px;
+
+          @media only screen and (max-width: 768px) {
+            margin-right: 0;
+          }
         }
       }
     }

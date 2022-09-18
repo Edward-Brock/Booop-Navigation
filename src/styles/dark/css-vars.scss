@@ -60,6 +60,10 @@ html.dark {
 
       &:hover {
         border: rgba(50, 50, 50, 1) 2px solid !important;
+
+        .addCardText {
+          @include fontDarkModeColor(.95);
+        }
       }
     }
   }
@@ -120,10 +124,10 @@ html.dark {
 
     .addCardText {
       @include fontDarkModeColor(.5);
-    }
 
-    .addCardIcon {
-      @include fontDarkModeColor(.5);
+      &:before {
+        color: rgba(255, 255, 255, .25) !important;
+      }
     }
   }
 
